@@ -16,9 +16,9 @@ router.post("/register", async(req, res) => {
         password: hashedPassword
     }, (err, results) => {
         if (err) {
-            res.status(400).send({msg: "User create error."})
+            res.status(500).send({msg: "User create error."})
         } else{
-            res.status(200).send({msg: "User has been created."})
+            res.status(201).send({msg: "User has been created."})
         }
     })
 })
