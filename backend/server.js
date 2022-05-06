@@ -30,10 +30,14 @@ const login = require("./routes/loginRoutes");
 const register = require("./routes/registerRoutes");
 const admin = require("./routes/adminRoutes");
 const search = require("./routes/searchRoutes");
+const location = require("./routes/locationRoutes");
+const weather = require("./routes/weatherRoutes");
 app.use(login);
 app.use(register);
 app.use(admin);
 app.use(search);
+app.use(location);
+app.use(weather);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
