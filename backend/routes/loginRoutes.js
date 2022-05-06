@@ -2,12 +2,12 @@
 //const router = express.Router()
 const router = require('express').Router();
 const mongoose = require('mongoose');
-const User = require('../models/userModel');
+let User = require('../models/userModel');
 
 router.get("/login", (req, res) => {
-/*     User.create({
+    User.create({
         _id: new mongoose.Types.ObjectId(),
-        username: 'Leo',
+        username: 'xxx',
         password: '0000'
     }, function(err, results){
         if(err){
@@ -15,7 +15,7 @@ router.get("/login", (req, res) => {
         }else{
             res.send({msg:'User created successfully'})
         }
-    }) */
+    })
 })
 
 module.exports = router;
