@@ -7,11 +7,16 @@ http://localhost:3000
 Backend PORT: 8080
 http://localhost:8080
 
-To start Client
+Client Development build
 cd client
 npm start
 
-To start Backend
+Client Production build
+npm run build
+npm install -g serve
+serve -s build
+
+Backend
 cd backend
 npm start
 
