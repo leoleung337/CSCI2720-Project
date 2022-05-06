@@ -26,8 +26,14 @@ connection.once('open',()=>{
 })
 
 //import routes
-const test = require('./routes/loginRoutes')
-app.use(test)
+const login = require('./routes/loginRoutes')
+const register = require('./routes/registerRoutes')
+const admin = require('./routes/adminRoutes')
+const search = require('./routes/searchRoutes')
+app.use(login)
+app.use(register)
+app.use(admin)
+app.use(search)
 
 app.listen(port, ()=>{
     console.log(`Server is running on port: ${port}`);
