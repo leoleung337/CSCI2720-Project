@@ -1,16 +1,10 @@
 /* 
-This is the home page of user interface, it can redirect to 
-Forum, Chat, Profile and SearchUser. 
-The logout button will be put on this page.
-
+This is the home page of user interface
 */
 
 import React from "react";
-import {Route,Routes} from 'react-router-dom';
 import Weather from "./Weather";
 import EachLocation from "./EachLocation";
-//import './home.css'
-
 import {Route,Routes,useNavigate,Navigate, useParams} from 'react-router-dom';
 import Cookies from "universal-cookie";
 import 'bootstrap/dist/css/bootstrap.css';
@@ -50,7 +44,6 @@ class Home extends React.Component{
                 <div className="icon-bar" >  
                     <a href="/" onClick={this.removeCookies}><i className="fa fa-sign-out" ></i></a> 
                     <a href={`/user/${params}/`}><i className="fa fa-user"></i></a> 
-                    <a href={`/user/${params}/`}><i className="fa fa-envelope"></i></a> 
                     <a href={`/user/${params}/`} ><i className="fa fa-search"></i></a>
 
                 </div>
@@ -58,8 +51,8 @@ class Home extends React.Component{
                
            
                 <Routes>
-                    <Route path = "/*" element= {<Weather/>}/>
-                    <Route path = "/:location" element={<EachLocation/>}/>
+                    <Route path = "/*" element= {<Weather username={params}/>}/>
+                    <Route path = "/:location" element={<EachLocation username={params} />}/>
                 </Routes>
                 </div>
             )

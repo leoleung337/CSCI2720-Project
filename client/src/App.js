@@ -10,8 +10,7 @@ const App =() =>{
       <div style={{height: "auto", paddingBottom: "72.9vh"}}>
           <Routes>
               <Route path = '/' element = {<LoginPage />}/>
-              <Route path = '/home/*' element = {<Home/>}/>
-              <Route path = '/user/:username' element = {<Home/>}/>
+              <Route path = '/user/:username/*' element = {<Home/>}/>
               <Route path = '/admin/*' element = {<AdminPage/>}/>
           </Routes>
       </div>
