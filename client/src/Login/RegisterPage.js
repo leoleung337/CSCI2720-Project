@@ -4,9 +4,7 @@ This js is for registration
 */
 import React from "react";
 import {Link,Navigate} from "react-router-dom";
-import FileBase64 from "react-file-base64";
 //import './Registration.css'
-const {REACT_APP_URL} = process.env;
 
 class Registration extends React.Component{
     constructor(props){

@@ -1,6 +1,6 @@
 import React from "react";
 
-class ManageUser extends React.Component{
+class ManageLocation extends React.Component{
     constructor(props){
         super(props)
     }
@@ -8,7 +8,7 @@ class ManageUser extends React.Component{
         return(
             <>
             <div>
-                <h1>Manage User</h1>
+                <h1>Manage Location</h1>
 
 
             </div>
@@ -16,4 +16,4 @@ class ManageUser extends React.Component{
         );
     }
 }
-export default ManageUser;
+export default ManageLocation;
