@@ -9,7 +9,6 @@ import React from "react";
 import {Link,Navigate,useNavigate} from "react-router-dom";
 import { instanceOf } from "prop-types";
 import Cookies from "universal-cookie"
-const {REACT_APP_URL} = process.env;
 
 
 class LoginPage extends React.Component{
@@ -113,7 +112,7 @@ class LoginPage extends React.Component{
                 
                 <br/>
                 <div className="d-flex justify-content-center" id="login">
-                    <li style={{ listStyleType: "none"}}><Link to="/registration" id="link" >Don't have an account?</Link></li>
+                    <li style={{ listStyleType: "none"}}><Link to="/register" id="link" >Don't have an account?</Link></li>
                     
                     </div>
                 <div style={{paddingTop:20}}> </div>

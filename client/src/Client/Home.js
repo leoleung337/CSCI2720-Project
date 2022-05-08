@@ -48,11 +48,7 @@ class Home extends React.Component{
                     <a href={`/user/${params}/`}><i className="fa fa-user"></i></a> 
                     <a href={`/user/${params}/`}><i className="fa fa-envelope"></i></a> 
                     <a href={`/user/${params}/`} ><i className="fa fa-search"></i></a>
-
-                </div>
-
-               
-           
+                </div>           
                 <Routes>
                 </Routes>
                 </div>

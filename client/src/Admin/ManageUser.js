@@ -10,6 +10,7 @@ class ManageUser extends React.Component{
             <div>
                 <h1>Manage User Table</h1>
 
+
             </div>
             </>
         );
