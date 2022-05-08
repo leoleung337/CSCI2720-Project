@@ -5,7 +5,7 @@ This is the home page of user interface
 import React from "react";
 import Weather from "./Weather";
 import EachLocation from "./EachLocation";
-import {Route,Routes,useNavigate,Navigate, useParams} from 'react-router-dom';
+import {Route,Routes,Link,useNavigate,Navigate, useParams} from 'react-router-dom';
 import Cookies from "universal-cookie";
 import 'bootstrap/dist/css/bootstrap.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -50,7 +50,8 @@ class Home extends React.Component{
 
                 <br/>
                 <ul className = "nav nav-tabs text-light">
-                    <a class="nav-item nav-link" href={`/user/${params}/`}>A</a> 
+                    
+                    <a class="nav-item nav-link" href={`/user/${params}/`}>Favourite Locations</a> 
                     <a class="nav-item nav-link" href={`/user/${params}/`}>B</a> 
                     <a class="nav-item nav-link" href={`/user/${params}/`}>C</a>
                     <a class="nav-item nav-link" href="/" onClick={this.removeCookies}>Logout<i class="bi bi-box-arrow-in-left"></i></a>
