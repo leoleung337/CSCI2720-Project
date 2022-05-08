@@ -22,3 +22,5 @@ npm start
 
 https://www.youtube.com/watch?v=7CqJlxBYj-M
 https://www.youtube.com/watch?v=-Vd5RRZXIyo
+Production Build
+https://www.youtube.com/watch?v=cu419lg9zrw

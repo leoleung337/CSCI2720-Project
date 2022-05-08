@@ -17,7 +17,7 @@ router.post("/login", (req, res) => {
         } else if (!bcrypt.compareSync(req.body.password, user.password)){
             return res.status(401).send({msg:'Wrong Password!'});
         }  else{
-            return res.status(200).send({msg:'User successfully logged in.'});
+            return res.status(200).send({msg:'User successfully logged in.', username: user.username});
         }
     })
 
