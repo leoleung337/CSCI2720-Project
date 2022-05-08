@@ -2,6 +2,7 @@ const router = require("express").Router();
 const mongoose = require("mongoose");
 let Location = require("../models/locationModel");
 let User = require("../models/userModel");
+let Comment = require("../models/commentModel");
 const fetch = require("node-fetch");
 
 //Create Location Data
@@ -84,6 +85,51 @@ router.get("/location/delete/:location", (req, res) => {
       res.send({ msg: "Location is deleted" });
     }
   }).remove();
+});
+
+//AddComments
+router.post("/location/:location/addComment", (req, res) => {
+  if (req.body.comment != ""){
+    var commentObj = new Comment({
+      author: req.body.user;
+      content: req.body.comment;
+    });
+    Comment.create(commentObj, (err, comment) => {
+      if (err) {
+        res.status(500).send({ msg: err.message });
+      }
+      else{
+       Location.findOne({locationName: req.params["location"]})
+       .populate("comments")
+       .exec((err, location) => {
+         if (err) {
+           res.status(500).send({ msg: err.message });
+         }
+         else{
+           location.comments.push(comment);
+           res.send({msg: "Comment submitted successfully"});
+         }
+       });
+      }
+    });
+  }
+});
+
+//LoadComments
+router.get("/location/:location/loadComment", (req, res) => {
+  var commentList =[];
+  Location.findOne({locationName: req.params["location"]})
+  .populate("comments")
+  .exec((err, result) => {
+    if (err) {
+      res.status(500).send({ msg: err.message });
+    }
+    else{
+      for (var i = 0; i < result.comments.length; i++)
+       commentList.push([result.comments[i].author, result.comments[i].content]);
+      res.send(commentList);
+    }
+  });
 });
 
 module.exports = router;
