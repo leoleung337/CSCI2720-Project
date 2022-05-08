@@ -1,5 +1,6 @@
 import Home from "./Client/Home";
 import LoginPage from "./Login/LoginPage";
+import AdminPage from "./Admin/AdminPage"
 import { BrowserRouter,Routes,Route} from "react-router-dom";
 
 const App =() =>{
@@ -8,6 +9,7 @@ const App =() =>{
           <Routes>
               <Route path = '/' element = {<LoginPage />}/>
               <Route path = '/home' element = {<Home/>}/>
+              <Route path = '/admin/*' element = {<AdminPage/>}/>
           </Routes>
       </div>
   );
