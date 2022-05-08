@@ -16,7 +16,7 @@ class Home extends React.Component{
                   
                     <Routes>
                         <Route path = "/*" element= {<Weather/>}/>
-                        <Route path = "/London" element={<EachLocation/>}/>
+                        <Route path = "/:location" element={<EachLocation/>}/>
                     </Routes>
                 </div>
         );
