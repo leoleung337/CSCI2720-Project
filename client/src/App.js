@@ -1,3 +1,5 @@
+import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 import Home from "./Client/Home";
 import LoginPage from "./Login/LoginPage";
 import AdminPage from "./Admin/AdminPage"
