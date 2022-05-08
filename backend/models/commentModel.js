@@ -12,4 +12,9 @@ const commentSchema = new Schema({
 });
 
 const Comment = mongoose.model("Comment", commentSchema);
+app.post("/location/:eventId/addcomment",function(req, res){
+  
+  
+});
+       
 module.exports = Comment;
