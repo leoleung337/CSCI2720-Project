@@ -10,7 +10,7 @@ class Admin extends React.Component{
     render(){
         return(
             <div>
-                <h1>AdminPage</h1>
+                <h1>Admin Page</h1>
                 <br/>
                 <ul className = "nav nav-tabs text-light">
                     <Link to="/admin/ManageUser" className = "nav-link">Manage User</Link>

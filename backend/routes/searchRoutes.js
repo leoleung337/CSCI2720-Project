@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const mongoose = require('mongoose');
 let User = require("../models/userModel")
-
+//List All user for admin main page
 //search for user
 router.get("/search",(req,res)=>{
     User.find()
