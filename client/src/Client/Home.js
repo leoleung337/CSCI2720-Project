@@ -37,15 +37,26 @@ class Home extends React.Component{
                 return <Navigate to="/"/>
             }
             return(
+            //navbar
             <div className="container">
-               
                  <div style={{paddingTop:20}}/>
                 <h1 style={{fontSize:45}}> <a href={`/user/${params}`}>Main Page</a></h1>
-                <div className="icon-bar" >  
-                    <a href="/" onClick={this.removeCookies}><i className="fa fa-sign-out" ></i></a> 
-                    <a href={`/user/${params}/`}><i className="fa fa-user"></i></a> 
-                    <a href={`/user/${params}/`} ><i className="fa fa-search"></i></a>
-                </div>           
+{/*                 <div className="icon-bar" >  
+                    <a href="/" onClick={this.removeCookies}>Logout  <i class="bi bi-box-arrow-in-left"></i></a>
+                    <a href={`/user/${params}/`}></a> 
+                    <a href={`/user/${params}/`}></a> 
+                    <a href={`/user/${params}/`}></a>
+                </div> */}
+
+                <br/>
+                <ul className = "nav nav-tabs text-light">
+                    <a class="nav-item nav-link" href={`/user/${params}/`}>A</a> 
+                    <a class="nav-item nav-link" href={`/user/${params}/`}>B</a> 
+                    <a class="nav-item nav-link" href={`/user/${params}/`}>C</a>
+                    <a class="nav-item nav-link" href="/" onClick={this.removeCookies}>Logout<i class="bi bi-box-arrow-in-left"></i></a>
+                </ul>
+                <br/>
+
                 <Routes>
                     <Route path = "/*" element= {<Weather username={params}/>}/>
                     <Route path = "/:location" element={<EachLocation username={params} />}/>
