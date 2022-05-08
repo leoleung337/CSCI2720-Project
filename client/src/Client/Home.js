@@ -45,11 +45,7 @@ class Home extends React.Component{
                     <a href="/" onClick={this.removeCookies}><i className="fa fa-sign-out" ></i></a> 
                     <a href={`/user/${params}/`}><i className="fa fa-user"></i></a> 
                     <a href={`/user/${params}/`} ><i className="fa fa-search"></i></a>
-
-                </div>
-
-               
-           
+                </div>           
                 <Routes>
                     <Route path = "/*" element= {<Weather username={params}/>}/>
                     <Route path = "/:location" element={<EachLocation username={params} />}/>
