@@ -110,34 +110,7 @@ const mapContainerStyle = {
        }
        reloadPage();
      }
-  
 
-/*
-     const addfavloc =(text) =>{
-
-        fetch(`http://localhost:8080//location/addFavourite/${location}/${username}`, {
-         method: 'GET',
-         headers: {
-             'Content-Type': 'application/json'
-             },
-       
-         mode:"cors"
-    
-       })
-       .then(res=>res.json())
-       
-       .then(res=>{
-           console.log('added to favourite',res)
-       })
-       .catch((error)=>{
-           console.log('failed to add',error)
-       });
-       const reloadPage = () => {
-         window.location.reload()
-       }
-       reloadPage();
-     }
-*/
 
       return (
         <div>
@@ -208,55 +181,3 @@ const mapContainerStyle = {
         </div>
       );
  }
-
-/*
-  <h6>Temp_c: {temp_c}</h6>
-                <h6>Wind_kph: {wind_kph} </h6>
-                <h6>Wind_dir: {wind_dir}</h6>
-                <h6>Humidity: {humidity}</h6>
-                <h6>Precip_mm: {precip_mm}</h6>
-                <h6>Vis_km: {vis_km}</h6>
-class EachLocation extends React.Component{
-    constructor(props){
-        super(props);
-    }
-    
-    async componentDidMount(){
-        const response = await fetch(`${REACT_APP_URL}/location/create/:location`)
-        await response.json()
-        .then(json=>{
-            this.setState({posts:json,showposts:json})
-            console.log(json) 
-        })   
-    }
-    
-    render(){
-   
-        return(
-
-            <div>hi
-             
-            <Map
-                google = {this.props.google}
-                style ={{width:"50%",height:"50%"}}
-                zoom={10}
-                initialCenter = {
-                    {
-                        lat:51.506078,
-                        lng:-0.127305
-                    }
-                }
-                />
-                </div>
-        );
-    }
-
-
-
-}
-export default GoogleApiWrapper({
-    apiKey: "AIzaSyB91UVLhKv--pecJHLAMwS2JpmGgYbsTps"
-}) (EachLocation);
-
- center={{ lat:{lat},lng:{lng}}}>
-*/
