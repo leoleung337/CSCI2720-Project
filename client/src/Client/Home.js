@@ -50,7 +50,7 @@ class Home extends React.Component{
 
                 <br/>
                 <ul className = "nav nav-tabs text-light">
-                    
+
                     <a class="nav-item nav-link" href={`/user/${params}/`}>Favourite Locations</a> 
                     <a class="nav-item nav-link" href={`/user/${params}/`}>B</a> 
                     <a class="nav-item nav-link" href={`/user/${params}/`}>C</a>

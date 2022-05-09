@@ -91,8 +91,8 @@ router.get("/location/delete/:location", (req, res) => {
 router.post("/location/:location/addComment", (req, res) => {
   if (req.body.comment != ""){
     var commentObj = new Comment({
-      author: req.body.user;
-      content: req.body.comment;
+      author: req.body.user,
+      content: req.body.comment
     });
     Comment.create(commentObj, (err, comment) => {
       if (err) {
