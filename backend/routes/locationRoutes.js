@@ -74,6 +74,9 @@ router.get("/location/addFavorite/:location/:username", (req, res) => {
   });
 });
 
+//Delete favorite location
+//router.get("/location/deleteFavorite/:location/:username")
+
 //List all favorite location
 router.get("/location/listAllFavourite/:username", (req, res) => {
   User.findOne({ username: req.params.username })
@@ -103,7 +106,7 @@ router.get("/location/delete/:location", (req, res) => {
 });
 
 //AddComments
-router.post("/location/:location/addComment", (req, res) => {
+/* router.post("/location/:location/addComment", (req, res) => {
   if (req.body.comment != ""){
     var commentObj = new Comment({
       author: req.body.user,
@@ -122,13 +125,42 @@ router.post("/location/:location/addComment", (req, res) => {
          }
          else{
            location.comments.push(comment);
+           location.save()
            res.send({msg: "Comment submitted successfully"});
          }
        });
       }
     });
   }
-});
+}); */
+
+router.post("/location/:location/addComment", (req, res) => {
+  if (req.body.comment == ""){
+    res.send({ msg: "Please fill in the comment box" })
+  } else {
+    Comment.create({
+      author: req.body.author,
+      content: req.body.content
+    }, (err, results) => {
+      if (err) {
+        res.status(500).send({msg: "Comment create error."})
+    } else{
+        Location.findOne({ locationName: req.params.location})
+        .populate("comments")
+        .exec((err, location) => {
+          if (err) {
+            res.status(500).send({msg: "Location Comment create error."})
+        } else{
+          location.comments.push(results)
+          location.save()
+          res.send({msg: "Comment submitted successfully"});
+        }
+
+        })
+    }
+    })
+  }
+})
 
 //LoadComments
 router.get("/location/:location/loadComment", (req, res) => {
