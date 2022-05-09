@@ -2,6 +2,23 @@
 div{
     font-family: 'Quicksand', sans-serif;
 }
+
+button{
+    border: none;
+    background-color: rgb(219, 219, 219);
+    padding: 8px 15px;
+    text-align: center;
+    margin-top: 15px;
+    float: right;
+    cursor: pointer;
+    margin: 15px 5px;
+    display:block;
+ 
+}
+button:hover{
+  background-color: rgb(210, 208, 208);
+}
+
 h2,th,td,h4{
     text-align: center;
 }
@@ -26,3 +43,4 @@ table.center {
   }
 
   tr:hover {background-color: rgb(233, 231, 231);}
+

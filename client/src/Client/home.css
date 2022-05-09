@@ -1,36 +1,23 @@
-h1{
+h5{
     font-family: 'Quicksand', sans-serif;
-    color: white;
+
+}
+a{
+    color:rgb(108, 106, 106);
     text-decoration: none;
 }
-h1 a{
-    color:white;
-    text-decoration: none;
+a:hover{
+    color: rgb(74, 74, 74);
 }
-h1 a:hover{
-    color: white;
-    font-weight: bold;
-  
-}
-div{
-    background-color: rgb(64,66,79);
-    color: white;
+
+h5{
     font-family: 'Quicksand', sans-serif;
+    text-align: right;
+    font-style:italic;
+    text-decoration: underline;
+
 }
-.icon-bar{
-    width: 100%;
-    overflow: auto;
+#listbar{
+text-align: right;
 }
 
-.icon-bar a{
-    float: right;
-    width:5%;
-    color: rgb(125, 129, 151);
-    text-align: center;
-    padding: 5px 0;
-    font-size: 25px;
-}
-
-.icon-bar a:hover {
-    color: rgb(255, 255, 255);
-}

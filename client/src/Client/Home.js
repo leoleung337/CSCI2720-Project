@@ -4,6 +4,8 @@ This is the home page of user interface
 
 import React from "react";
 import Weather from "./Weather";
+import FavLoc from "./FavLoc";
+import "./home.css"
 import EachLocation from "./EachLocation";
 import {Route,Routes,Link,useNavigate,Navigate, useParams} from 'react-router-dom';
 import Cookies from "universal-cookie";
@@ -40,7 +42,8 @@ class Home extends React.Component{
             //navbar
             <div className="container">
                  <div style={{paddingTop:20}}/>
-                <h1 style={{fontSize:45}}> <a href={`/user/${params}`}>Main Page</a></h1>
+                <h2 style={{fontSize:45}}> <a href={`/user/${params}`}>Main Page</a></h2>
+                <h5>{params}</h5>
 {/*                 <div className="icon-bar" >  
                     <a href="/" onClick={this.removeCookies}>Logout  <i class="bi bi-box-arrow-in-left"></i></a>
                     <a href={`/user/${params}/`}></a> 
@@ -49,17 +52,15 @@ class Home extends React.Component{
                 </div> */}
 
                 <br/>
-                <ul className = "nav nav-tabs text-light">
-
-                    <a class="nav-item nav-link" href={`/user/${params}/`}>Favourite Locations</a> 
-                    <a class="nav-item nav-link" href={`/user/${params}/`}>B</a> 
-                    <a class="nav-item nav-link" href={`/user/${params}/`}>C</a>
+                <div className = "nav nav-tabs text-light" >
+                    <a class="nav-item nav-link" href={`/user/${params}/FavouriteLocation`}>Favourite Locations</a> 
                     <a class="nav-item nav-link" href="/" onClick={this.removeCookies}>Logout<i class="bi bi-box-arrow-in-left"></i></a>
-                </ul>
+                </div>
                 <br/>
 
                 <Routes>
                     <Route path = "/*" element= {<Weather username={params}/>}/>
+                    <Route path = "/:location/FavouriteLocation" element= {<FavLoc username={params}/>}/>
                     <Route path = "/:location" element={<EachLocation username={params} />}/>
                 </Routes>
                 </div>

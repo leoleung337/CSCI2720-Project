@@ -1,0 +1,16 @@
+#favtable{
+    
+    border-collapse:collapse;
+    border-color: white;
+    margin-left:auto; 
+    margin-right: auto;
+    border: 1px solid #ddd;
+    
+}
+
+#loctd{
+    text-align: left;
+    border: none;
+    padding-left: 40px;
+    
+}

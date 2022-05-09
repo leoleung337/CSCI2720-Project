@@ -1,5 +1,8 @@
-//user action q4-5 single location details
-
+/*
+A separate view for one single location 
+Add location into a list of user’s favourite locations
+(user action #4,5)
+*/
 import React, {useEffect, useState } from "react";
 import { GoogleMap, useLoadScript } from '@react-google-maps/api';
 import {useParams} from 'react-router-dom';
@@ -14,6 +17,7 @@ const mapContainerStyle = {
 };
 
  export default function EachLocation(props){
+    const {username} = useParams();
     const{location} = useParams();
     const [lat, setLat] = useState();
     const [lng, setLng] = useState();
@@ -24,6 +28,7 @@ const mapContainerStyle = {
     const [precip_mm, setprecip_mm] = useState();
     const [ vis_km, setvis_km] = useState();
    
+    //getting single location details from database
     useEffect(() =>{
     const getLocation = async()=>{
         const response = await fetch(`http://localhost:8080/weather/${location}`);
@@ -41,6 +46,30 @@ const mapContainerStyle = {
     };
     getLocation();
     },[]);
+
+    //getting single location comments from database
+    const [comment, setcomment] = useState([]);
+    useEffect(() =>{
+    const fetchComment = async () => {
+          const response = await fetch(`http://localhost:8080/location/${location}/loadComment`);
+          const res = await response.json();
+          setcomment(res)
+          console.log(res)
+      };
+      fetchComment();
+    },[]);
+      
+    
+    const addfavloc = function(){
+       fetch(`http://localhost:8080/location/addFavourite/${location}/${username}`)
+        .then(res=>res.json())
+       .then(res=>{
+          window.alert(res.msg)
+          console.log(res)
+       })
+  
+    };
+       
     const Center={
         lat:lat,
         lng:lng
@@ -52,16 +81,73 @@ const mapContainerStyle = {
       });
       if(loadError) return "error loading map";
       if(!isLoaded) return "loading map";
-      return (
     
+    //posting comments to database
+    const addcomment =(text) =>{
+        let data={
+        author:username,
+        content:text,
+        }
+        fetch(`http://localhost:8080/location/${location}/addComment`, {
+         method: 'POST',
+         headers: {
+             'Content-Type': 'application/json'
+             },
+         body: JSON.stringify(data),
+         mode:"cors"
+    
+       })
+       .then(res=>res.json())
+       
+       .then(res=>{
+           console.log('posted a comment',res)
+       })
+       .catch((error)=>{
+           console.log('failed to comment',error)
+       });
+       const reloadPage = () => {
+         window.location.reload()
+       }
+       reloadPage();
+     }
+  
+
+/*
+     const addfavloc =(text) =>{
+
+        fetch(`http://localhost:8080//location/addFavourite/${location}/${username}`, {
+         method: 'GET',
+         headers: {
+             'Content-Type': 'application/json'
+             },
+       
+         mode:"cors"
+    
+       })
+       .then(res=>res.json())
+       
+       .then(res=>{
+           console.log('added to favourite',res)
+       })
+       .catch((error)=>{
+           console.log('failed to add',error)
+       });
+       const reloadPage = () => {
+         window.location.reload()
+       }
+       reloadPage();
+     }
+*/
+
+      return (
         <div>
-            <h2>{location}</h2>
+            <button  className="button" onClick={()=>addfavloc()}> Add to Favourite </button>
+            <h2 style={{paddingTop:70}}>{location}</h2>
             <GoogleMap
             mapContainerStyle={mapContainerStyle}
             zoom={10}
             center={Center} id="map"/>
             <div style={{paddingTop:30}}>
-                
                 <table className="center">
                     <tr>
                         <th colspan="2">Location Details</th>
@@ -93,16 +179,35 @@ const mapContainerStyle = {
 
                 </table>
               
-                <h4 style={{paddingTop:50}}>User Comments</h4>
+                <h4 style={{paddingTop:50}}>Comments</h4>
+
+                {comment.map((comment,index)=>
+                <div className="card" id="everycomment"key ={index} >
+                    <div className="card-body">
+                        <p > #{index+1} <span style={{fontSize:17}} id="username">{comment.author} </span><span style={{fontSize:14}}></span></p>
+                        <p>{comment.content}</p>
+                    </div>
+                </div>                
+                )}
+
+                <form  
+                onSubmit={(e) => {           
+                e.preventDefault();
+                addcomment(e.target[0].value)}}>
+                
+                <div className="form-group" style={{paddingTop:30}}>
+                <h4 style={{paddingTop:30}}>Add Comments</h4>
+                    
+                    <textarea name="content" id="content" className="form-control" placeholder="Write Something..." rows={10} required></textarea>
+                </div>
+                <button type="submit" className="button" >Submit</button>
+                
+                </form>
             </div>
 
         </div>
       );
-
-
  }
-
-
 
 /*
   <h6>Temp_c: {temp_c}</h6>
