@@ -1,4 +1,5 @@
 //Search for keywords (User action #3)
+
 import React from "react";
 
 class Search extends React.Component {
@@ -6,35 +7,43 @@ class Search extends React.Component {
         super(props)
     }
     render() {
-        return (<><h1>Search for location:</h1>
-     <form action="http://localhost:8080/weather/location" method="post">
+        return (<><h1>Search for attributes</h1>
+            <form>
 
-        <label for="eventid">Keywords</label>
-        <input type="text" id="kw" name="kw">
-        <button type="button" id="loadKW" onclick="loadKW()">load</button>
-        <br>
+                <label>Attribute:</label>
+                <select id="kw">
+                    <option value="temp_c">temp_c</option>
+                    <option value="wind_kph">wind_kph</option>
+                    <option value="wind_dir">wind_dir</option>
+                    <option value="humidity">humidity</option>
+                    <option value="precip_mm">precip_mm</option>
+                    <option value="vis_km">vis_km</option>
+                </select>
 
-        <button type="submit">GO</button>
+                <button type="button" id="search" onclick="search()">load</button>
+            </form>
 
+            <div>
+                <h2>Results:</h2>
+                <table id="results"></table>
+            </div>
+            <script>
+                {function search() {
+                    let kw = document.querySelector("#kw").value;
+                    fetch("http://localhost:8080/weather")
+                        .then(res => res.json())
+                        .then(data => {
+                            document.querySelector("#results").appendChild(<tr><td>Location</td><td>{kw}</td></tr>);
+                            for (let i=0;i<15;i=i+1){
+                                let loc=data[i].locationName;
+                                let field=data[i].kw;
+                                document.querySelector("#results").appendChild(<tr><td>{loc}</td><td>{field}</td></tr>);
+                            }
+                        });
+                }
+                }
 
-    </form> 
-
-<script>
-    function loadKW() {
-        let kw = document.querySelector("#kw").value;
-        fetch("http://localhost:8080/" + kw)
-            .then(res => res.json())
-            .then(data => {
-                document.querySelector("#name").value = data.name;
-                document.querySelector("#locId").value = data.loc.locId;
-                document.querySelector("#quota").value = data.quota;
-            });
-    }
-
-
-</script></>
-        )  
+            </script></>)
     }
 }
-
 export default Search
