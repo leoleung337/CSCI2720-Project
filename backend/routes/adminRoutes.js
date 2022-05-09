@@ -2,6 +2,7 @@ const router = require('express').Router();
 const mongoose = require('mongoose');
 const bcrypt = require("bcryptjs")
 let User = require('../models/userModel');
+let Comment = require('../models/commentModel');
 
 router.get("/admin", (req, res) => {
     res.send({msg:'Hello World. This is admin routes'})
@@ -17,7 +18,7 @@ router.post("/admin/:username/update", async(req, res) => {
             if (user){
                 return res.status(401).send({msg: "Username existed. Please choose another username."})
             }else{
-                User.findOne({ userId: req.params.userId, }, async (err, user) => {
+                User.findOne({ username: req.params.username, }, async (err, user) => {
                     if(!user){
                         return res.status(401).send({msg: "We cannot find this user to update."})
                     }
@@ -47,10 +48,28 @@ router.post("/admin/:username/update", async(req, res) => {
                 })
             }  
         })
-
-
-
     }
+})
+
+//delete user, delete user comment
+router.post("/admin/:username/delete", async (req, res) => {
+    //Delete all Comment
+    await Comment.deleteMany({author: req.params.username}).then(function(){
+        console.log("---Comment deleted---")
+    }).catch(function(err){
+        console.log(err)
+        return res.status(400).json({msg:"Fail to delete Comment"})
+    })
+
+    //delete the user
+    User.findOneAndDelete({username: req.params.username}).then(function(user){
+        console.log("USER DELETED")
+        return res.status(200).json({msg:"User deleted!"})
+    }).catch(function(err){
+        console.log(err)
+        return res.status(400).json({msg:"Fail to delete user"})
+    })
+
 })
 
 module.exports = router;

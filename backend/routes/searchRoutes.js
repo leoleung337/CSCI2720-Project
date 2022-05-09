@@ -34,9 +34,9 @@ router.get("/searchAllLocation",(req,res)=>{
 })
 //search One location
 //input: query 
-//http://localhost:8080/searchOneLocation?location=xxxxx
-router.get("/searchOneLocation",(req,res)=>{
-    Location.find({ locationName: { $regex: req.query.location, $options: "i" } })
+//http://localhost:8080/searchOneLocation/xxxx
+router.get("/searchOneLocation/:location",(req,res)=>{
+    Location.find({ locationName: { $regex: req.body.location, $options: "i" } })
     .sort({locationName: 1})
     .exec(function(err, result){
         if (err){
