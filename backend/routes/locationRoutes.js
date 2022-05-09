@@ -55,7 +55,7 @@ router.get("/location/addFavorite/:location/:username", (req, res) => {
         (err, location) => {
           if (err) {
             res.status(500).send({ msg: err.message });
-          } else if (!user) {
+          } else if (!location) {
             res.status(500).send({ msg: "This location cannot find" });
           } else {
             user.favouriteLocations.push(location._id);
