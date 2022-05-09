@@ -15,7 +15,6 @@ class TableView extends React.Component {
                         <td>location</td><td>time</td><td>temp_c</td><td>wind_kph</td><td>wind_dir</td><td>humidity</td><td>precip_mm</td><td>vis_km</td>
                         {data.map((weather, index) => <tr>
                             <td><a href="http://localhost:8080/weather/${weather.location}">{weather.location.locationName}</a></td>
-                            <td>{weather.time}</td>
                             <td>{weather.temp_c}</td>
                             <td>{weather.wind_kph}</td>
                             <td>{weather.wind_dir}</td>
