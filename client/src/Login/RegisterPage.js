@@ -48,7 +48,7 @@ class Registration extends React.Component{
     render(){
         return(
             <div>
-            <h1> Account Registration</h1>
+            <h1 className ="d-flex justify-content-center">Account Registration</h1>
             <div style={{ textAlign: 'center' }}>
                 <form onSubmit={this.handleSubmit}>
                     <div >

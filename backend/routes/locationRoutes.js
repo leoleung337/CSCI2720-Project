@@ -74,6 +74,21 @@ router.get("/location/addFavorite/:location/:username", (req, res) => {
   });
 });
 
+//List all favorite location
+router.get("/location/listAllFavourite/:username", (req, res) => {
+  User.findOne({ username: req.params.username })
+  .populate("favouriteLocations")
+  .exec((err, user) => {
+    if (err) {
+      res.status(500).send({ msg: err.message })
+    } else if (!user){
+      res.status(500).send({ msg: "username not existed!"})
+    } else{
+      res.send(user.favouriteLocations)
+    }
+  })
+})
+
 //Delete
 router.get("/location/delete/:location", (req, res) => {
   Location.findOne({ locationName: req.params["location"] }, (err, results) => {
