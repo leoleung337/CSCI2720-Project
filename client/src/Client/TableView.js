@@ -11,8 +11,7 @@ class TableView extends React.Component {
             .then(res => res.json())
             .then(data => {
                 return (<><h1>TableView</h1>
-                    <form action="http://localhost:8080/weather/location" method="post">
-
+                    <form>
                         <label>Sort by:</label>
                         <select id="sort">
                             <option value="0">Default</option>
@@ -30,7 +29,7 @@ class TableView extends React.Component {
                     <table>
                         <td>location</td><td>time</td><td>temp_c</td><td>wind_kph</td><td>wind_dir</td><td>humidity</td><td>precip_mm</td><td>vis_km</td>
                         {data.map((weather, index) => <tr id={index}>
-                            <td><a href="http://localhost:8080/weather/${weather.location}">{weather.location.locationName}</a></td>
+                            <td><a href="http://localhost:8080/weather/${weather.location.locationName}">{weather.location.locationName}</a></td>
                             <td>{weather.temp_c}</td>
                             <td>{weather.wind_kph}</td>
                             <td>{weather.wind_dir}</td>
