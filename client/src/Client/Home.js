@@ -60,7 +60,7 @@ class Home extends React.Component{
 
                 <Routes>
                     <Route path = "/*" element= {<Weather username={params}/>}/>
-                    <Route path = "/:location/FavouriteLocation" element= {<FavLoc username={params}/>}/>
+                    <Route path = "/FavouriteLocation" element= {<FavLoc username={params}/>}/>
                     <Route path = "/:location" element={<EachLocation username={params} />}/>
                 </Routes>
                 </div>
