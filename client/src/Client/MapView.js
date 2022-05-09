@@ -24,7 +24,7 @@ class MapView extends React.Component {
                     var map = new google.maps.Map(document.getElementById("map"), mapProp);
                     data.map((weather, index) => {(weather,map)=>{
                     var marker = new google.maps.Marker({ 
-                        position: {Lat:info.lat,Lng:info.lng},
+                        position: {Lat:info.location.latitude,Lng:info.location.longitude},
                         map:map,
                     });
 
