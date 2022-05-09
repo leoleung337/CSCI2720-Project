@@ -43,7 +43,7 @@ router.get("/location", (req, res) => {
 });
 
 //Add favorite location
-router.get("/location/addFavorite/:location/:username", (req, res) => {
+router.get("/location/addFavourite/:location/:username", (req, res) => {
   User.findOne({ username: req.params["username"] }, (err, user) => {
     if (err) {
       res.status(500).send({ msg: err.message });
@@ -75,7 +75,38 @@ router.get("/location/addFavorite/:location/:username", (req, res) => {
 });
 
 //Delete favorite location
-//router.get("/location/deleteFavorite/:location/:username")
+router.get("/location/deleteFavourite/:location/:username", (req, res) => {
+  User.findOne({ username: req.params.username })
+  .populate("favouriteLocations")
+  .exec((err, user) => {
+    if (err) {
+      res.status(500).send({ msg: err.message })
+    } else if (!user){
+      res.status(500).send({ msg: "username not existed!"})
+    } else {
+      Location.findOne(
+        { locationName: req.params["location"] },
+        (err, location) => {
+          if (err) {
+            res.status(500).send({ msg: err.message });
+          } else if (!location) {
+            res.status(500).send({ msg: "This location cannot find" });
+          } else {
+            user.favouriteLocations.pull(location._id);
+            let uniqueLocation = user.favouriteLocations.filter(
+              (element, index) => {
+                return user.favouriteLocations.indexOf(element) === index;
+              }
+            );
+            user.favouriteLocations = [...uniqueLocation];
+            user.save();
+            res.send({ msg: "User favourite location has been deleted" });
+          }
+        }
+      );
+    }
+  })
+})
 
 //List all favorite location
 router.get("/location/listAllFavourite/:username", (req, res) => {
@@ -164,7 +195,7 @@ router.post("/location/:location/addComment", (req, res) => {
 
 //LoadComments
 router.get("/location/:location/loadComment", (req, res) => {
-  var commentList =[];
+  //var commentList =[];
   Location.findOne({locationName: req.params["location"]})
   .populate("comments")
   .exec((err, result) => {
@@ -172,9 +203,10 @@ router.get("/location/:location/loadComment", (req, res) => {
       res.status(500).send({ msg: err.message });
     }
     else{
-      for (var i = 0; i < result.comments.length; i++)
+      res.send(result.comments);
+/*       for (var i = 0; i < result.comments.length; i++)
        commentList.push([result.comments[i].author, result.comments[i].content]);
-      res.send(commentList);
+       res.send(commentList); */
     }
   });
 });
