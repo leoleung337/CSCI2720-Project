@@ -38,7 +38,7 @@ import "./FavLoc.css"
                 <div>
                     <table className="center" id="favtable">
                         <tr>
-                            <td id="loctd">{favloc.locationName}</td>
+                            <td id="loctd"><a href ={`/user/${username}/${favloc.locationName}`}>{favloc.locationName}</a></td>
                             <td id="loctd"><button onClick={()=>deleteloc(favloc.locationName)}>Remove</button></td>
                         </tr>
                             
