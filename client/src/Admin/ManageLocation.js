@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './ManageLocation.css'
 
 class ManageLocation extends React.Component {
     constructor(props) {
@@ -8,7 +9,9 @@ class ManageLocation extends React.Component {
         return (
             <div>
                 <CreateLocation />
+                <br></br>
                 <DeleteLocation />
+                <br></br>
                 <ReadLocation />
             </div>
         );
@@ -28,7 +31,7 @@ class CreateLocation extends React.Component {
     }
 
     handleSubmit(event) {
-        fetch("localhost:8080/location/create/" + this.state.value).then((res) => res.json());
+        fetch("http://localhost:8080/location/create/" + this.state.value).then((res) => res.json());
         event.preventDefault();
     }
 
@@ -39,8 +42,11 @@ class CreateLocation extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Location:
+                        <br></br>
                         <input type="text" value={ this.state.value } onChange={ this.handleChange } />
                     </label>
+                    <br></br>
+                    <br></br>
                     <input type="submit" value="Submit" />
                 </form>
             </div>
@@ -61,7 +67,7 @@ class DeleteLocation extends React.Component {
     }
 
     handleSubmit(event) {
-        fetch("localhost:8080/location/delete/" + this.state.value).then((res) => res.json());
+        fetch("http://localhost:8080/location/delete/" + this.state.value).then((res) => res.json());
         event.preventDefault();
     }
 
@@ -72,8 +78,11 @@ class DeleteLocation extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Location:
+                        <br></br>
                         <input type="text" value={ this.state.value } onChange={ this.handleChange } />
                     </label>
+                    <br></br>
+                    <br></br>
                     <input type="submit" value="Submit" />
                 </form>
             </div>
@@ -84,8 +93,8 @@ class DeleteLocation extends React.Component {
 function ReadLocation(){
     const [data, setData] = useState([]);
     useEffect(()=>{
-        fetch('localhost:8080/location')
-            .then(response => response.json())
+        fetch('http://localhost:8080/location')
+            .then(res => res.json())
             .then(setData);
     }, []);
 
@@ -95,7 +104,21 @@ function ReadLocation(){
                 <h2>Read</h2>
                 <table>
                     <tbody>
-                        { data.map((e) => <><tr><td>{e.location.name}</td><td>{e.location.lat}</td><td>{e.location.lon}</td></tr></>) }
+                        <tr>
+                            <th>Name</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                        </tr>
+                        {
+                            data.map((e) =>
+                                <>
+                                    <tr>
+                                        <td>{e.locationName}</td>
+                                        <td>{e.latitude}</td>
+                                        <td>{e.longitude}</td>
+                                    </tr>
+                                </>
+                            ) }
                     </tbody>
                 </table>
             </div>

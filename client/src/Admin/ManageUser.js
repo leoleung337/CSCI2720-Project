@@ -1,4 +1,5 @@
 import React from "react";
+import './ManageUser.css'
 
 class ManageUser extends React.Component{
     constructor(props){
@@ -7,10 +8,11 @@ class ManageUser extends React.Component{
     render(){
         return(
             <>
-            <div>
-                <UpdateUser />
-                <DeleteUser />
-            </div>
+                <div>
+                    <UpdateUser />
+                    <br></br>
+                    <DeleteUser />
+                </div>
             </>
         );
     }
@@ -39,7 +41,7 @@ class UpdateUser extends React.Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ changeUsername: this.state.username, changePassword: this.state.password })
         };
-        fetch("localhost:8080/" + this.state.username + "/update", requestOptions).then((res) => res.json());
+        fetch("http://localhost:8080/" + this.state.username + "/update", requestOptions).then((res) => res.json());
         event.preventDefault();
     }
 
@@ -50,12 +52,17 @@ class UpdateUser extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Username:
+                        <br></br>
                         <input type="text" value={ this.state.username } onChange={ this.handleUsernameChange } />
                     </label>
+                    <br></br>
                     <label>
                         Password:
+                        <br></br>
                         <input type="text" value={ this.state.password } onChange={ this.handlePasswordChange } />
                     </label>
+                    <br></br>
+                    <br></br>
                     <input type="submit" value="Submit" />
                 </form>
             </div>
@@ -76,7 +83,7 @@ class DeleteUser extends React.Component {
     }
 
     handleSubmit(event) {
-        fetch("localhost:8080/" + this.state.value + "/delete").then((res) => res.json());
+        fetch("http://localhost:8080/" + this.state.value + "/delete").then((res) => res.json());
         event.preventDefault();
     }
 
@@ -87,8 +94,11 @@ class DeleteUser extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Username:
+                        <br></br>
                         <input type="text" value={ this.state.value } onChange={ this.handleChange } />
                     </label>
+                    <br></br>
+                    <br></br>
                     <input type="submit" value="Submit" />
                 </form>
             </div>
