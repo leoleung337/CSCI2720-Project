@@ -3,13 +3,16 @@ const mongoose = require('mongoose');
 const bcrypt = require("bcryptjs")
 let User = require('../models/userModel');
 let Comment = require('../models/commentModel');
+let Weather = require('../models/weatherModel');
+let Location = require("../models/locationModel");
+const fetch = require("node-fetch");
 
 router.get("/admin", (req, res) => {
     res.send({msg:'Hello World. This is admin routes'})
 })
 
 //update username or password
-router.post("/admin/:username/update", async(req, res) => {
+router.post("/admin/update/:username", async(req, res) => {
     if (req.body.changeUsername == "" && req.body.changePassword == ""){
         return res.status(400).send({msg: "Please fill in the blanks if you want to update profile."})
     }
@@ -51,8 +54,9 @@ router.post("/admin/:username/update", async(req, res) => {
     }
 })
 
+
 //delete user, delete user comment
-router.post("/admin/:username/delete", async (req, res) => {
+router.post("/admin/user/delete/:username", async (req, res) => {
     //Delete all Comment
     await Comment.deleteMany({author: req.params.username}).then(function(){
         console.log("---Comment deleted---")
@@ -62,7 +66,7 @@ router.post("/admin/:username/delete", async (req, res) => {
     })
 
     //delete the user
-    User.findOneAndDelete({username: req.params.username}).then(function(user){
+    await User.findOneAndDelete({username: req.params.username}).then(function(user){
         console.log("USER DELETED")
         return res.status(200).json({msg:"User deleted!"})
     }).catch(function(err){
@@ -71,5 +75,81 @@ router.post("/admin/:username/delete", async (req, res) => {
     })
 
 })
+
+//delete location, weather, comment
+router.post("/admin/location/delete/:location", async (req, res) => {
+    Location.findOneAndDelete({ locationName: req.params.location }, (err, results) => {
+        if (err) {
+            res.status(500).send({ msg: err.message });
+          } else if (!results) {
+            res.status(500).send({ msg: "This location cannot find" });
+          } else {
+              Comment.deleteMany({ _id: { $in: results.comments } }, (err) =>{
+                  if (err){
+                    res.status(500).send({ msg: err.message });
+                  }
+              })
+              Weather.findOneAndDelete({ location: results._id }, (err) =>{
+                if (err){
+                    res.status(500).send({ msg: err.message });
+                  }
+              })
+              res.send({ msg: "Location, related comment and weather have been deleted" });
+          }
+    })
+})
+
+//create location, related weather
+router.post("/admin/location/create/:location", (req, res) => {
+    Location.findOne({locationName: req.params.location}, (err, results) => {
+        if (err) {
+            res.status(500).send({ msg: "Location create error." + err.message });
+          } else if (results) {
+            res.status(500).send({ msg: "Location existed" });
+          } else {
+            let location = req.params["location"];
+            fetch(
+              "http://api.weatherapi.com/v1/current.json?key=b6aad25f604944e0987142747221004&q=" +
+                location
+            )
+              .then((res) => res.json())
+              .then((data) => {
+                Location.create(
+                  {
+                    locationName: data.location.name,
+                    latitude: data.location.lat,
+                    longitude: data.location.lon,
+                  },
+                  (err, results) => {
+                    if (err) {
+                      res.status(500).send({ msg: "Location create error." });
+                    } else {
+                        Weather.create(
+                            {
+                              location: results._id,
+                              time: data.current.last_updated,
+                              temp_c: data.current.temp_c,
+                              wind_kph: data.current.wind_kph,
+                              wind_dir: data.current.wind_dir,
+                              humidity: data.current.humidity,
+                              precip_mm: data.current.precip_mm,
+                              vis_km: data.current.vis_km,
+                            },
+                            (err, weatherRsults) => {
+                              if (err) {
+                                res.status(500).send({ msg: "Weather create error." + err.message });
+                              } else {
+                                res.status(200).send({ msg: "Location and Weather have been created." });
+                              }
+                            }
+                          );
+                    }
+                  }
+                );
+              });
+          }
+    })
+    
+  });
 
 module.exports = router;
