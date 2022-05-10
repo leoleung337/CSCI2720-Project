@@ -135,7 +135,7 @@ router.post("/admin/location/create/:location", (req, res) => {
                               precip_mm: data.current.precip_mm,
                               vis_km: data.current.vis_km,
                             },
-                            (err, weatherRsults) => {
+                            (err, weatherRseults) => {
                               if (err) {
                                 res.status(500).send({ msg: "Weather create error." + err.message });
                               } else {
