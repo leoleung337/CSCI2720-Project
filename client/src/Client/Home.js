@@ -53,8 +53,8 @@ class Home extends React.Component{
 
                 <br/>
                 <div className = "nav nav-tabs text-light" >
-                    <a class="nav-item nav-link" href={`/user/${params}/FavouriteLocation`}>Favourite Locations</a> 
-                    <a class="nav-item nav-link" href="/" onClick={this.removeCookies}>Logout<i class="bi bi-box-arrow-in-left"></i></a>
+                    <Link to ={`/user/${params}/FavouriteLocation`}>Favourite Locations</Link> 
+                    <Link to ="/" onClick={this.removeCookies}>Logout<i class="bi bi-box-arrow-in-left"></i></Link>
                 </div>
                 <br/>
 
