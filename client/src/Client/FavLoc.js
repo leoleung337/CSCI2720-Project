@@ -1,5 +1,5 @@
 import React, {useEffect, useState } from "react";
-import {useParams} from 'react-router-dom';
+import {useParams , Link} from 'react-router-dom';
 import "./FavLoc.css"
 
   export default function FavLoc(props){
@@ -33,12 +33,12 @@ import "./FavLoc.css"
     return(
         <div>
             <h2>Your Favourite Locations</h2>
-            <div>
+            <div  style={{paddingTop:30}}>
             {(favloc||[]).map((favloc)=>(
                 <div>
                     <table className="center" id="favtable">
                         <tr>
-                            <td id="loctd"><a href ={`/user/${username}/${favloc.locationName}`}>{favloc.locationName}</a></td>
+                            <td id="loctd"><Link to ={`/user/${username}/${favloc.locationName}`}>{favloc.locationName}</Link></td>
                             <td id="loctd"><button onClick={()=>deleteloc(favloc.locationName)}>Remove</button></td>
                         </tr>
                             

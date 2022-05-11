@@ -49,7 +49,6 @@ const mapContainerStyle = {
 
     //getting single location comments from database
     const [comment, setcomment] = useState([]);
-    useEffect(() =>{
     const fetchComment = async () => {
           const response = await fetch(`http://localhost:8080/location/${location}/loadComment`);
           const res = await response.json();
@@ -57,9 +56,8 @@ const mapContainerStyle = {
           console.log(res)
       };
       fetchComment();
-    },[]);
+      useEffect(()=>{fetchComment()},[]) //update comments when new comments had been made 
       
-    
     const addfavloc = function(){
        fetch(`http://localhost:8080/location/addFavourite/${location}/${username}`)
         .then(res=>res.json())
@@ -102,15 +100,7 @@ const mapContainerStyle = {
        .then(res=>{
            console.log('posted a comment',res)
        })
-       .catch((error)=>{
-           console.log('failed to comment',error)
-       });
-       const reloadPage = () => {
-         window.location.reload()
-       }
-       reloadPage();
      }
-
 
       return (
         <div>
@@ -156,7 +146,7 @@ const mapContainerStyle = {
 
                 {comment.map((comment,index)=>
                 <div className="card" id="everycomment"key ={index} >
-                    <div className="card-body">
+                    <div className="card-body" id="001">
                         <p > #{index+1} <span style={{fontSize:17}} id="username">{comment.author} </span><span style={{fontSize:14}}></span></p>
                         <p>{comment.content}</p>
                     </div>
@@ -171,7 +161,7 @@ const mapContainerStyle = {
                 <div className="form-group" style={{paddingTop:30}}>
                 <h4 style={{paddingTop:30}}>Add Comments</h4>
                     
-                    <textarea name="content" id="content" className="form-control" placeholder="Write Something..." rows={10} required></textarea>
+                    <textarea name="content" id="new-comment" className="form-control" placeholder="Write Something..." rows={10} required></textarea>
                 </div>
                 <button type="submit" className="button" >Submit</button>
                 

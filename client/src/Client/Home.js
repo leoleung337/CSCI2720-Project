@@ -42,7 +42,7 @@ class Home extends React.Component{
             //navbar
             <div className="container">
                  <div style={{paddingTop:20}}/>
-                <h2 style={{fontSize:45}}> <a href={`/user/${params}`}>Main Page</a></h2>
+                <h2 style={{fontSize:45}}> <Link to={`/user/${params}`}>Main Page</Link></h2>
                 <h5>{params}</h5>
 {/*                 <div className="icon-bar" >  
                     <a href="/" onClick={this.removeCookies}>Logout  <i class="bi bi-box-arrow-in-left"></i></a>
@@ -52,9 +52,9 @@ class Home extends React.Component{
                 </div> */}
 
                 <br/>
-                <div className = "nav nav-tabs text-light" >
-                    <Link to ={`/user/${params}/FavouriteLocation`}>Favourite Locations</Link> 
-                    <Link to ="/" onClick={this.removeCookies}>Logout<i class="bi bi-box-arrow-in-left"></i></Link>
+                <div className = "nav nav-tabs text-light" id="bar" >
+                    <Link to ={`/user/${params}/FavouriteLocation`} id= "favlocation">Favourite Locations</Link> 
+                    <Link to ="/" onClick={this.removeCookies} id="logout">Logout<i class="bi bi-box-arrow-in-left"></i></Link>
                 </div>
                 <br/>
 
