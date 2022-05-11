@@ -10,9 +10,12 @@ const fetch = require("node-fetch");
 router.get("/admin", (req, res) => {
     res.send({msg:'Hello World. This is admin routes'})
 })
+//old username + password req.params.username
+//new username + passwrod
+//changeUsername changePassword
 
 //update username or password
-router.post("/admin/update/:username", async(req, res) => {
+/* router.post("/admin/update/:username", async(req, res) => {
     if (req.body.changeUsername == "" && req.body.changePassword == ""){
         return res.status(400).send({msg: "Please fill in the blanks if you want to update profile."})
     }
@@ -52,6 +55,46 @@ router.post("/admin/update/:username", async(req, res) => {
             }  
         })
     }
+}) */
+
+//update username or password
+router.post("/admin/update/:username", async(req, res) => {
+  if (req.body.changeUsername == "" && req.body.changePassword == ""){
+      return res.status(400).send({msg: "Please fill in the blanks if you want to update User."})
+  }
+  else {
+      User.findOne({ username: req.body.changeUsername }, (err, user) => {
+          if (user){
+              return res.status(401).send({msg: "Username existed. Please choose another username."})
+          }else{
+              User.findOne({ username: req.params.username, }, async (err, user) => {
+                  if(!user){
+                      return res.status(401).send({msg: "We cannot find this user to update."})
+                  }
+                  else {
+                      //username update
+                      if (req.body.changeUsername != ""){
+                          user.username = req.body.changeUsername
+                        }
+                       //password update
+                      if (req.body.changePassword != ""){
+                          const hashedPassword = await bcrypt.hash(req.body.changePassword, 10)
+                          user.password = hashedPassword
+                      }
+                      user.save(() => {
+                          if (err){
+                              return res.status(500).send({msg: err.message});
+                          }
+                          else{
+                              return res.status(201).send({msg: "User has been update"});
+          
+                          }
+                      })
+                  }
+              })
+          }  
+      })
+  }
 })
 
 
