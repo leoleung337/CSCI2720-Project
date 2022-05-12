@@ -31,7 +31,11 @@ class CreateLocation extends React.Component {
     }
 
     handleSubmit(event) {
-        fetch("http://localhost:8080/location/create/" + this.state.value).then((res) => res.json());
+        fetch("http://localhost:8080/admin/location/create/" + this.state.value, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ location: this.state.value })
+        }).then((res) => res.json());
         event.preventDefault();
     }
 
@@ -67,7 +71,11 @@ class DeleteLocation extends React.Component {
     }
 
     handleSubmit(event) {
-        fetch("http://localhost:8080/location/delete/" + this.state.value).then((res) => res.json());
+        fetch("http://localhost:8080/admin/location/delete/" + this.state.value, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ location: this.state.value })
+        }).then((res) => res.json());
         event.preventDefault();
     }
 

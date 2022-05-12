@@ -46,6 +46,8 @@ class Admin extends React.Component{
                     <Route path = "/ManageUser" element={ <ManageUser /> } />
                     <Route path = "/ManageLocation" element={ <ManageLocation /> } />
                 </Routes>
+                {/*<BackToLogin />*/}
+                {/* for me to test without login as admin, if you see this comment, please uncomment it*/}
             </div>
         );
     }
