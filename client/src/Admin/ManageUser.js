@@ -9,6 +9,8 @@ class ManageUser extends React.Component{
         return(
             <>
                 <div>
+                    <CreateUser />
+                    <br></br>
                     <UpdateUser />
                     <br></br>
                     <DeleteUser />
@@ -64,30 +66,81 @@ class ListAllUser extends React.Component{
         }
     }
 
+class CreateUser extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { username: '', password: '' };
+        this.handleUsernameChange = this.handleUsernameChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleUsernameChange(event) {
+        this.setState({ username: event.target.value });
+    }
+
+    handlePasswordChange(event) {
+        this.setState({ password: event.target.value });
+    }
+
+    handleSubmit(event) {
+        fetch("http://localhost:8080/register", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: this.state.username, password: this.state.password })
+        }).then(response =>{
+            response.json().then(df=>{
+                window.alert(df.msg)
+            })
+        })
+        event.preventDefault();
+    }
+    render() {
+        return (
+            <div>
+                <h2>Create</h2>
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        Username:
+                        <br></br>
+                        <input type="text" value={ this.state.username } onChange={ this.handleUsernameChange } />
+                    </label>
+                    <br></br>
+                    <label>
+                        Password:
+                        <br></br>
+                        <input type="text" value={ this.state.password } onChange={ this.handlePasswordChange } />
+                    </label>
+                    <br></br>
+                    <br></br>
+                    <input type="submit" value="Submit" />
+                </form>
+            </div>
+        );
+    }
+}
+
 class UpdateUser extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { username: '' , changeUsername: '', changePassword: '' };
+        this.state = { username: '', changeUsername: '', changePassword: '' };
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handleChangeUsernameChange = this.handleChangeUsernameChange.bind(this);
         this.handleChangePasswordChange = this.handleChangePasswordChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-
     handleUsernameChange(event) {
-        this.setState({ username : event.target.value });
+        this.setState({ username: event.target.value });
     }
 
     handleChangeUsernameChange(event) {
-        this.setState({ changeUsername : event.target.value });
+        this.setState({ changeUsername: event.target.value });
     }
 
     handleChangePasswordChange(event) {
-        this.setState({ changePassword : event.target.value });
+        this.setState({ changePassword: event.target.value });
     }
-
-
 
     handleSubmit(event) {
         fetch("http://localhost:8080/admin/update/" + this.state.username, {
