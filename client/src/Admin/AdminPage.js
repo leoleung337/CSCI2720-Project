@@ -16,8 +16,16 @@ class Admin extends React.Component{
         console.log('remove')
     }
     updateDatabase = () => {
-        fetch('http://localhost:8080/location').then(res => res.json()).then((e) => e.forEach((e) => fetch("http://localhost:8080/weather/update/" + e.locationName)));
-    }
+        fetch('http://localhost:8080/location').then(res => res.json()).then((locations) => locations.forEach((location) => {
+            /* comments for testing if the weather is updated */
+            /*fetch("http://localhost:8080/weather/" + location.locationName).then((res) => res.json()).then((weather) => {
+                console.log("[Old]: " + location.locationName + ": " + weather.temp_c);
+            });*/
+            fetch("http://localhost:8080/weather/update/" + location.locationName).then((res) => res.json());
+            /*fetch("http://localhost:8080/weather/" + location.locationName).then((res) => res.json()).then((weather) => {
+                console.log("[New]: " + location.locationName + ": " + weather.temp_c);
+            });*/
+        }))}
     render(){
         const BackToLogin = (props) =>{
             const cookie = new Cookies()
@@ -46,8 +54,7 @@ class Admin extends React.Component{
                     <Route path = "/ManageUser" element={ <ManageUser /> } />
                     <Route path = "/ManageLocation" element={ <ManageLocation /> } />
                 </Routes>
-                {/*<BackToLogin />*/}
-                {/* for me to test without login as admin, if you see this comment, please uncomment it*/}
+                <BackToLogin />
             </div>
         );
     }
