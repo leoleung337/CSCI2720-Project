@@ -25,7 +25,10 @@ class Admin extends React.Component{
             /*fetch("http://localhost:8080/weather/" + location.locationName).then((res) => res.json()).then((weather) => {
                 console.log("[New]: " + location.locationName + ": " + weather.temp_c);
             });*/
-        }))}
+        }))
+        window.alert("Weather have been updated")
+    
+    }
     render(){
         const BackToLogin = (props) =>{
             const cookie = new Cookies()

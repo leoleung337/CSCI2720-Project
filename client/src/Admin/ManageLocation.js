@@ -35,7 +35,11 @@ class CreateLocation extends React.Component {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ location: this.state.value })
-        }).then((res) => res.json());
+        }).then(response =>{
+            response.json().then(df=>{
+                window.alert(df.msg)
+            })
+        })
         event.preventDefault();
     }
 
@@ -75,7 +79,11 @@ class DeleteLocation extends React.Component {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ location: this.state.value })
-        }).then((res) => res.json());
+        }).then(response =>{
+            response.json().then(df=>{
+                window.alert(df.msg)
+            })
+        })
         event.preventDefault();
     }
 

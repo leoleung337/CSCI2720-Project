@@ -87,15 +87,20 @@ class UpdateUser extends React.Component {
         this.setState({ changePassword : event.target.value });
     }
 
+
+
     handleSubmit(event) {
         fetch("http://localhost:8080/admin/update/" + this.state.username, {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: this.state.username, changeUsername: this.state.changeUsername, changePassword: this.state.changePassword })
-        }).then((res) => res.json());
+        }).then(response =>{
+            response.json().then(df=>{
+                window.alert(df.msg)
+            })
+        })
         event.preventDefault();
     }
-
     render() {
         return (
             <div>
@@ -144,7 +149,11 @@ class DeleteUser extends React.Component {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: this.state.value })
-        }).then((res) => res.json());
+        }).then(response =>{
+            response.json().then(df=>{
+                window.alert(df.msg)
+            })
+        })
         event.preventDefault();
     }
 
