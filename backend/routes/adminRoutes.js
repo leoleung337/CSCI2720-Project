@@ -137,7 +137,7 @@ router.post("/admin/location/delete/:location", async (req, res) => {
                     res.status(500).send({ msg: err.message });
                   }
               })
-              res.send({ msg: "Location, related comment and weather have been deleted" });
+              res.send({ msg: results.locationName + " has been deleted" });
           }
     })
 })
@@ -182,7 +182,7 @@ router.post("/admin/location/create/:location", (req, res) => {
                               if (err) {
                                 res.status(500).send({ msg: "Weather create error." + err.message });
                               } else {
-                                res.status(200).send({ msg: "Location and Weather have been created." });
+                                res.status(200).send({ msg: results.locationName + "  has been created." });
                               }
                             }
                           );
