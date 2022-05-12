@@ -1,65 +1,88 @@
-//Table view of location (User action #1)
+//Map view of location (User action #2)
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import EachLocation from "./EachLocation";
+import { Route, Routes, Link, useParams } from 'react-router-dom';
 
-class TableView extends React.Component {
-    constructor(props) {
-        super(props)
+export default function TableView() {
+    const [arr, setarr] = useState([]);
+    const params=useParams().username;
+
+    useEffect(() => {
+        const getLocation = async () => {
+            const response = await fetch(`http://localhost:8080/weather`);
+            const res = await response.json();
+            setarr(res)
+
+        };
+        getLocation();
+    }, []);
+
+    let sorting=function() {
+        let sortby = document.querySelector("#sort").value;
+        if (sortby == 0) return;
+        let s = [],t=[],s_sort=[];
+        let tab=document.querySelector("#tab");
+        for (let i = 1; i < tab.children.length; i++) {
+            let row = []            
+            for (let j = 0; j < 7; j++) {
+            row[j] = tab.children[i].children[j].innerText;
+            }
+            t[i-1]=row
+            s[i-1] = parseFloat(tab.children[i].children[sortby].innerText);
+            s_sort[i-1] = parseFloat(tab.children[i].children[sortby].innerText);
+        
     }
-    render() {
-        fetch("http://localhost:3000/weather")
-            .then(res => res.json())
-            .then(data => {
-                return (<><h1>TableView</h1>
-                    <form>
-                        <label>Sort by:</label>
-                        <select id="sort">
-                            <option value="0">Default</option>
-                            <option value="1">temp_c</option>
-                            <option value="2">wind_kph</option>
-                            <option value="3">wind_dir</option>
-                            <option value="4">humidity</option>
-                            <option value="5">precip_mm</option>
-                            <option value="6">vis_km</option>
-                        </select>
+        console.log(t)
+        s_sort.sort((x, y) => x - y);
+        console.log(s)
+        console.log(s_sort)
 
-                        <button type="button" id="sort" onclick="sorting()">enter</button>
-                    </form>
+        for (let i = 1; i < tab.children.length; i++) {
+            let newIndex = s.indexOf(s_sort[i]);
+            for (let j=0;j<7;j++){
+                tab.children[i].children[j].innerText=t[newIndex][j];
 
-                    <table>
-                        <td>location</td><td>time</td><td>temp_c</td><td>wind_kph</td><td>wind_dir</td><td>humidity</td><td>precip_mm</td><td>vis_km</td>
-                        {data.map((weather, index) => <tr id={index}>
-                            <td><Link to="/:location">{weather.location.locationName}</Link></td>
-                            <td>{weather.temp_c}</td>
-                            <td>{weather.wind_kph}</td>
-                            <td>{weather.wind_dir}</td>
-                            <td>{weather.humidity}</td>
-                            <td>{weather.precip_mm}</td>
-                            <td>{weather.vis_km}</td></tr>
-                        )}
-                    </table>
-                    <Routes><Route path="/:location" element={<EachLocation username={params} />} />
+            }
+            s[newIndex]=9999999
+        }
+    }
+    return (
+        <>
+            <h1>TableView</h1>
+            <form>
+                <label>Sort by:</label>
+                <select id="sort">
+                    <option value="0">Default</option>
+                    <option value="1">temp_c</option>
+                    <option value="2">wind_kph</option>
+                    <option value="4">humidity</option>
+                    <option value="5">precip_mm</option>
+                    <option value="6">vis_km</option>
+                </select>
+
+                <button type="button" id="sort" onClick={()=>sorting()}>enter</button>
+            </form>
+
+
+            <table id="tab">
+                <tr><td>location</td><td>temp_c</td><td>wind_kph</td><td>wind_dir</td><td>humidity</td><td>precip_mm</td><td>vis_km</td></tr>
+                {arr.map((weather, index) =>
+                    <tr id={index}>
+                        <td><Link to ={`/user/${params}/${weather.location.locationName}`}>{weather.location.locationName}</Link></td>
+                        <td>{weather.temp_c}</td>
+                        <td>{weather.wind_kph}</td>
+                        <td>{weather.wind_dir}</td>
+                        <td>{weather.humidity}</td>
+                        <td>{weather.precip_mm}</td>
+                        <td>{weather.vis_km}</td></tr>
+
+                )}
+
+            </table>
+            <Routes>
+                        <Route path="/:location" element={<EachLocation username={params} />} />
                     </Routes>
-                    
-                    <script>
-                        {function sorting() {
-                            let sortby = document.querySelector("#sort").value;
-                            if (sortby == 0) return;
-                            let row = [], s = [];
-                            for (let i = 0; i < 15; i = i + 1) {
-                                row[i] = document.getElementById(i);
-                                s[i] = parseInt(row[i].children[sortby].innerHTML);
-                            }
-                            let t = s;
-                            t.sort((x, y) => x - y);
-                            for (let i = 0; i < 15; i = i + 1) {
-                                let newIndex = s.indexOf(t[i]);
-                                document.getElementById(i).replaceWith(row[newIndex]);
-                            }
-                        }}
-                    </script></>)
-            })
-    }
+            </>
+    );
 }
-
-export default TableView
