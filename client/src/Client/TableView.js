@@ -29,7 +29,7 @@ class TableView extends React.Component {
                     <table>
                         <td>location</td><td>time</td><td>temp_c</td><td>wind_kph</td><td>wind_dir</td><td>humidity</td><td>precip_mm</td><td>vis_km</td>
                         {data.map((weather, index) => <tr id={index}>
-                            <td><a href="http://localhost:8080/weather/${weather.location.locationName}">{weather.location.locationName}</a></td>
+                            <td><Link to="/:location">{weather.location.locationName}</Link></td>
                             <td>{weather.temp_c}</td>
                             <td>{weather.wind_kph}</td>
                             <td>{weather.wind_dir}</td>
@@ -38,6 +38,8 @@ class TableView extends React.Component {
                             <td>{weather.vis_km}</td></tr>
                         )}
                     </table>
+                    <Routes><Route path="/:location" element={<EachLocation username={params} />} />
+                    </Routes>
                     
                     <script>
                         {function sorting() {
@@ -46,7 +48,7 @@ class TableView extends React.Component {
                             let row = [], s = [];
                             for (let i = 0; i < 15; i = i + 1) {
                                 row[i] = document.getElementById(i);
-                                s[i] == parseInt(row[i].children[sortby].innerHTML);
+                                s[i] = parseInt(row[i].children[sortby].innerHTML);
                             }
                             let t = s;
                             t.sort((x, y) => x - y);

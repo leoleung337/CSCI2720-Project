@@ -27,7 +27,9 @@ class MapView extends React.Component {
                         map:map,
                     });
                     var infoWin=new google.maos.InfoWindow({
-                        content:<h2><a href='http://www.localhost:8080/weather/${weather.location.locationName}'>{weather.location.locationName}</a></h2>
+                        content:<><Link to='/:location'>{weather.location.locationName}</Link>
+                        <Routes><Route path="/:location" element={<EachLocation username={params} />} />
+                        </Routes></>                        
                     })
                     marker.addListener("click",()=>{infoWin.open(map,marker)})
                     })
