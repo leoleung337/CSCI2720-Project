@@ -1,4 +1,4 @@
-//Map view of location (User action #2)
+//Table view of location (User action #1)
 
 import React, { useEffect, useState } from "react";
 import EachLocation from "./EachLocation";
@@ -9,13 +9,13 @@ export default function TableView() {
     const params=useParams().username;
 
     useEffect(() => {
-        const getLocation = async () => {
+        const fet = async () => {
             const response = await fetch(`http://localhost:8080/weather`);
             const res = await response.json();
             setarr(res)
 
         };
-        getLocation();
+        fet();
     }, []);
 
     let sorting=function() {
@@ -33,10 +33,7 @@ export default function TableView() {
             s_sort[i-1] = parseFloat(tab.children[i].children[sortby].innerText);
         
     }
-        console.log(t)
         s_sort.sort((x, y) => x - y);
-        console.log(s)
-        console.log(s_sort)
 
         for (let i = 1; i < tab.children.length; i++) {
             let newIndex = s.indexOf(s_sort[i]);
@@ -76,7 +73,6 @@ export default function TableView() {
                         <td>{weather.humidity}</td>
                         <td>{weather.precip_mm}</td>
                         <td>{weather.vis_km}</td></tr>
-
                 )}
 
             </table>
