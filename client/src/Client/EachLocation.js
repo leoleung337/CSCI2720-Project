@@ -21,43 +21,62 @@ const mapContainerStyle = {
     const{location} = useParams();
     const [lat, setLat] = useState();
     const [lng, setLng] = useState();
+    const [time, setTime] = useState();
     const [temp_c, setTemp] = useState();
     const [wind_kph, setwind_kph] = useState();
     const [wind_dir, setwind_dir] = useState();
     const [humidity, sethumidity] = useState();
     const [precip_mm, setprecip_mm] = useState();
     const [ vis_km, setvis_km] = useState();
-   
+
+    //refresh the weather information by clicking the button
+    const clickupdate = function(){
+        updateweather();
+        getLocation();
+        window.alert("Time updated!")
+    }
+
+   //update the newest weather location before getting the weather
+    const updateweather = async()=>{
+        const response = await fetch (`http://localhost:8080/weather/update/${location}`)
+        .then(res=>res.json())
+        .then(res=>{console.log(res)})
+    };
+
     //getting single location details from database
-    useEffect(() =>{
+
     const getLocation = async()=>{
+        updateweather();
         const response = await fetch(`http://localhost:8080/weather/${location}`);
         const res = await response.json();
+       
         setLat(res.location.latitude)
         setLng(res.location.longitude)
+        setTime(res.time)
         setTemp(res.temp_c)
         setwind_kph(res.wind_kph)
         setwind_dir(res.wind_dir)
         sethumidity(res.humidity)
         setprecip_mm(res.precip_mm)
         setvis_km(res. vis_km)
-       
         console.log(res)
     };
-    getLocation();
-    },[]);
+    useEffect(()=>{getLocation()},[])
 
     //getting single location comments from database
     const [comment, setcomment] = useState([]);
+    useEffect(() =>{
     const fetchComment = async () => {
           const response = await fetch(`http://localhost:8080/location/${location}/loadComment`);
           const res = await response.json();
           setcomment(res)
-          console.log(res)
       };
       fetchComment();
-      useEffect(()=>{fetchComment()},[]) //update comments when new comments had been made 
+    
+    },[comment]);
+     // useEffect(()=>{fetchComment()},[]) //update comments when new comments had been made 
       
+     //add favourite locations to the database
     const addfavloc = function(){
        fetch(`http://localhost:8080/location/addFavourite/${location}/${username}`)
         .then(res=>res.json())
@@ -110,10 +129,16 @@ const mapContainerStyle = {
             mapContainerStyle={mapContainerStyle}
             zoom={10}
             center={Center} id="map"/>
-            <div style={{paddingTop:30}}>
+            <button  className="button" onClick={()=>clickupdate()}> Refresh time </button>
+
+            <div style={{paddingTop:90}}>
                 <table className="center">
                     <tr>
                         <th colspan="2">Location Details</th>
+                    </tr>
+                    <tr>
+                        <td style={{backgroundColor:"rgb(203, 225, 225)"}}>Last Updated Time</td>
+                        <td style={{backgroundColor:"rgb(203, 225, 225)"}}>{time}</td>
                     </tr>
                     <tr>
                         <td>Temp_c</td>
@@ -143,14 +168,16 @@ const mapContainerStyle = {
                 </table>
               
                 <h4 style={{paddingTop:50}}>Comments</h4>
+               
 
-                {comment.map((comment,index)=>
+                {(comment||[]).map((comment,index)=>(
                 <div className="card" id="everycomment"key ={index} >
                     <div className="card-body" id="001">
                         <p > #{index+1} <span style={{fontSize:17}} id="username">{comment.author} </span><span style={{fontSize:14}}></span></p>
                         <p>{comment.content}</p>
                     </div>
-                </div>                
+                </div>    
+                )            
                 )}
 
                 <form  

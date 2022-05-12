@@ -14,6 +14,8 @@ class Weather extends React.Component{
               
                 <Link to={`/user/${this.props.username}/London`}>London (Testing)</Link> 
                 <Link to={`/user/${this.props.username}/Seoul`}>Seoul (Testing)</Link> 
+                <Link to={`/user/${this.props.username}/Manila`}>Manila (Testing)</Link> 
+                <Link to={`/user/${this.props.username}/Hongkong`}>HK (Testing)</Link> 
             </div>
         )
     }
