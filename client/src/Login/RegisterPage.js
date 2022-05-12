@@ -22,6 +22,10 @@ class Registration extends React.Component{
         if(this.state.username==="" || this.state.password === "" ||this.state.confirmPw ===""){
             this.setState({alert:"Please fill in all the blanks"})
             this.setState({IsWrong:true})
+        }else if (this.state.username.length < 4 || this.state.username.length > 20){
+            window.alert("Please input 4-20 characters username")
+        }else if (this.state.password.length < 4 || this.state.password.length > 20){
+            window.alert("Please input 4-20 characters password")
         }else if (this.state.password !== this.state.confirmPw){
             this.setState({alert:"Confirmed Password is not match with Password"})
             this.setState({IsWrong:true})

@@ -125,7 +125,7 @@ router.post("/admin/location/delete/:location", async (req, res) => {
         if (err) {
             res.status(500).send({ msg: err.message });
           } else if (!results) {
-            res.status(500).send({ msg: "This location cannot find" });
+            res.status(500).send({ msg: "This location not existed in database" });
           } else {
               Comment.deleteMany({ _id: { $in: results.comments } }, (err) =>{
                   if (err){

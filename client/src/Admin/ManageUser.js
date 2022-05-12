@@ -84,7 +84,12 @@ class CreateUser extends React.Component {
     }
 
     handleSubmit(event) {
-        fetch("http://localhost:8080/register", {
+        if (this.state.username.length < 4 || this.state.username.length > 20){
+            window.alert("Please input 4-20 characters username")
+        }else if (this.state.password.length < 4 || this.state.password.length > 20){
+            window.alert("Please input 4-20 characters password")
+        }else{
+            fetch("http://localhost:8080/register", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: this.state.username, password: this.state.password })
@@ -94,6 +99,9 @@ class CreateUser extends React.Component {
             })
         })
         event.preventDefault();
+
+        }
+        
     }
     render() {
         return (
@@ -143,7 +151,12 @@ class UpdateUser extends React.Component {
     }
 
     handleSubmit(event) {
-        fetch("http://localhost:8080/admin/update/" + this.state.username, {
+        if (this.state.changeUsername.length < 4 || this.state.changeUsername.length > 20){
+            window.alert("Please input 4-20 characters username")
+        }else if (this.state.changePassword.length < 4 || this.state.changePassword.length > 20){
+            window.alert("Please input 4-20 characters password")
+        }else{
+            fetch("http://localhost:8080/admin/update/" + this.state.username, {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: this.state.username, changeUsername: this.state.changeUsername, changePassword: this.state.changePassword })
@@ -153,6 +166,9 @@ class UpdateUser extends React.Component {
             })
         })
         event.preventDefault();
+
+        }
+        
     }
     render() {
         return (

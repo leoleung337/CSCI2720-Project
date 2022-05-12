@@ -32,7 +32,7 @@ router.get("/location/create/:location", (req, res) => {
 });
 
 //FindALL
-router.get("/location", (req, res) => {
+/* router.get("/location", (req, res) => {
   Location.find((err, results) => {
     if (err) {
       res.status(500).send({ msg: err.message });
@@ -40,7 +40,20 @@ router.get("/location", (req, res) => {
       res.send(results);
     }
   });
-});
+}); */
+
+router.get("/location",(req,res)=>{
+  Location.find()
+  .sort({locationName: 1})
+  .exec(function(err, result){
+      if (err){
+          console.log(err)
+          return res.status(400).json({msg:"Sth goes wrong"})
+      }else{
+          return res.status(200).json(result)
+      }
+  })
+})
 
 //Add favorite location
 router.get("/location/addFavourite/:location/:username", (req, res) => {
