@@ -1,114 +1,3 @@
-/* import React from "react";
-import './ManageUser.css'
-
-class ManageUser extends React.Component{
-    constructor(props){
-        super(props)
-    }
-    render(){
-        return(
-            <>
-                <div>
-                    <UpdateUser />
-                    <br></br>
-                    <DeleteUser />
-                </div>
-            </>
-        );
-    }
-}
-
-class UpdateUser extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { username: '' , password: '' };
-        this.handleUsernameChange = this.handleUsernameChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleUsernameChange(event) {
-        this.setState({ username : event.target.value });
-    }
-
-    handlePasswordChange(event) {
-        this.setState({ password : event.target.value });
-    }
-
-    handleSubmit(event) {
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ changeUsername: this.state.username, changePassword: this.state.password })
-        };
-        fetch("http://localhost:8080/" + this.state.username + "/update", requestOptions).then((res) => res.json());
-        event.preventDefault();
-    }
-
-    render() {
-        return (
-            <div>
-                <h2>Update</h2>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Username:
-                        <br></br>
-                        <input type="text" value={ this.state.username } onChange={ this.handleUsernameChange } />
-                    </label>
-                    <br></br>
-                    <label>
-                        Password:
-                        <br></br>
-                        <input type="text" value={ this.state.password } onChange={ this.handlePasswordChange } />
-                    </label>
-                    <br></br>
-                    <br></br>
-                    <input type="submit" value="Submit" />
-                </form>
-            </div>
-        );
-    }
-}
-
-class DeleteUser extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { value: '' };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(event) {
-        this.setState({value: event.target.value});
-    }
-
-    handleSubmit(event) {
-        fetch("http://localhost:8080/" + this.state.value + "/delete").then((res) => res.json());
-        event.preventDefault();
-    }
-
-    render() {
-        return (
-            <div>
-                <h2>Delete</h2>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Username:
-                        <br></br>
-                        <input type="text" value={ this.state.value } onChange={ this.handleChange } />
-                    </label>
-                    <br></br>
-                    <br></br>
-                    <input type="submit" value="Submit" />
-                </form>
-            </div>
-        );
-    }
-}
-
-export default ManageUser;
- */
-
 import React from "react";
 import './ManageUser.css'
 
@@ -123,6 +12,7 @@ class ManageUser extends React.Component{
                     <UpdateUser />
                     <br></br>
                     <DeleteUser />
+                    <br></br>
                     <ListAllUser />
                 </div>
             </>
@@ -152,7 +42,6 @@ class ListAllUser extends React.Component{
         render(){
             return(
                 <>
-                <br></br>
                 <h2>Username List</h2>
                 <table>
                     <thead>
@@ -175,17 +64,13 @@ class ListAllUser extends React.Component{
         }
     }
 
-
-
-
-
-
 class UpdateUser extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { username: '' , password: '' };
+        this.state = { username: '' , changeUsername: '', changePassword: '' };
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleChangeUsernameChange = this.handleChangeUsernameChange.bind(this);
+        this.handleChangePasswordChange = this.handleChangePasswordChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -194,17 +79,20 @@ class UpdateUser extends React.Component {
         this.setState({ username : event.target.value });
     }
 
-    handlePasswordChange(event) {
-        this.setState({ password : event.target.value });
+    handleChangeUsernameChange(event) {
+        this.setState({ changeUsername : event.target.value });
+    }
+
+    handleChangePasswordChange(event) {
+        this.setState({ changePassword : event.target.value });
     }
 
     handleSubmit(event) {
-        const requestOptions = {
-            method: 'POST',
+        fetch("http://localhost:8080/admin/update/" + this.state.username, {
+            method: "POST",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ changeUsername: this.state.username, changePassword: this.state.password })
-        };
-        fetch("http://localhost:8080/" + this.state.username + "/update", requestOptions).then((res) => res.json());
+            body: JSON.stringify({ username: this.state.username, changeUsername: this.state.changeUsername, changePassword: this.state.changePassword })
+        }).then((res) => res.json());
         event.preventDefault();
     }
 
@@ -214,15 +102,21 @@ class UpdateUser extends React.Component {
                 <h2>Update</h2>
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        Username:
+                        Old Username:
                         <br></br>
                         <input type="text" value={ this.state.username } onChange={ this.handleUsernameChange } />
                     </label>
                     <br></br>
                     <label>
-                        Password:
+                        New Username:
                         <br></br>
-                        <input type="text" value={ this.state.password } onChange={ this.handlePasswordChange } />
+                        <input type="text" value={ this.state.changeUsername } onChange={ this.handleChangeUsernameChange } />
+                    </label>
+                    <br></br>
+                    <label>
+                        New Password:
+                        <br></br>
+                        <input type="text" value={ this.state.changePassword } onChange={ this.handleChangePasswordChange } />
                     </label>
                     <br></br>
                     <br></br>
@@ -246,7 +140,11 @@ class DeleteUser extends React.Component {
     }
 
     handleSubmit(event) {
-        fetch("http://localhost:8080/" + this.state.value + "/delete").then((res) => res.json());
+        fetch("http://localhost:8080/admin/user/delete/" + this.state.value, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: this.state.value })
+        }).then((res) => res.json());
         event.preventDefault();
     }
 
