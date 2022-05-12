@@ -7,10 +7,10 @@ class Search extends React.Component {
         super(props)
     }
     render() {
-        return (<><h1>Search for attributes</h1>
+        return (<><h1>Search for fields</h1>
             <form>
 
-                <label>Attribute:</label>
+                <label>Field:</label>
                 <select id="kw">
                     <option value="temp_c">temp_c</option>
                     <option value="wind_kph">wind_kph</option>
