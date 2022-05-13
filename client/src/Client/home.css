@@ -21,7 +21,7 @@ h5{
 text-align: right;
 }
 
-#favlocation{
+#favlocation,#search,#mapView{
     padding-right: 15px;
     text-align: right;
     float: right;

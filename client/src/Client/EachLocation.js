@@ -86,12 +86,13 @@ const mapContainerStyle = {
        })
   
     };
-       
+    //setting the latitude and longtitude of the map
     const Center={
         lat:lat,
         lng:lng
       };
-  
+
+    //loading the map by using an Api Key
     const {isLoaded , loadError} =useLoadScript({
         googleMapsApiKey: "AIzaSyB91UVLhKv--pecJHLAMwS2JpmGgYbsTps",
         libraries,

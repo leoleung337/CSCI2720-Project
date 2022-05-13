@@ -56,7 +56,6 @@ class Home extends React.Component {
 
                     <br />
                     <div className="nav nav-tabs text-light" id="bar" >
-                          <Link to={`/user/${params}/TableView`} id="tableView">Table View</Link> 
                         <Link to={`/user/${params}/MapView`} id="mapView">Map View</Link>
                         <Link to={`/user/${params}/Search`} id="search">Searching</Link> 
                         <Link to={`/user/${params}/FavouriteLocation`} id="favlocation">Favourite Locations</Link>
@@ -65,8 +64,8 @@ class Home extends React.Component {
                     <br />
 
                     <Routes>
-                        <Route path="/*" element={<Weather username={params} />} />
-                        <Route path="/TableView" element={<TableView username={params} />} /> 
+                        <Route path="/*" element={<TableView username={params} />} />
+                      
                          <Route path="/MapView" element={<MapView username={params} />} />
                         <Route path="/Search" element={<Search username={params} />} /> 
                         <Route path="/FavouriteLocation" element={<FavLoc username={params} />} />
