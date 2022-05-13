@@ -46,7 +46,7 @@ function Map() {
                 <Marker
                 title={'The marker`s title will appear as a tooltip.'}
                 name={'SOMA'}
-                position={{loc}} />
+                position={{lat: info.location.latitude, lng: info.location.longitude}} />
                 
                 <InfoBox position={loc}><Link to={`/user/${params}/${info.location.locationName}`}>{info.location.locationName}</Link></InfoBox>
                 </>
@@ -62,3 +62,20 @@ function Map() {
 }
 
 
+/* function Map() {
+    return(<>
+    <div style={{ height: '1000px', width: '1000px' }}>
+    <GoogleMap
+        zoom={10}
+        center={{lat:44, lng:-80}}
+        mapContainerStyle={mapContainerStyle}
+        >
+        <Marker
+            title={'The marker`s title will appear as a tooltip.'}
+            name={'SOMA'}
+            position={{lat: 44, lng: -88}} />
+        </GoogleMap>
+        <h1>hi</h1>
+        </div>
+        </>)
+} */
