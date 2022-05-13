@@ -12,6 +12,9 @@ const mapContainerStyle = {
 };
 
 export default function MapView() {
+   //update the newest weather location before getting the weather
+
+
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyB91UVLhKv--pecJHLAMwS2JpmGgYbsTps",
@@ -29,13 +32,20 @@ const centre = {
     lat: 0,
     lng: 0
 };
-    useEffect(() => {
-        const fet = async () => {
-            const response = await fetch(`http://localhost:8080/weather`);
-            const res = await response.json();
-            setarr(res);
-        };
-        fet();
+
+const clickupdate = function(){
+    fet();
+    window.alert("Location updated!")
+}
+
+const fet = async () => {
+    const response = await fetch(`http://localhost:8080/weather`);
+    const res = await response.json();
+    setarr(res);
+}
+
+
+    useEffect(() => {fet();
     }, []);
     console.log(arr)
 
@@ -44,9 +54,11 @@ const centre = {
             {arr.map((info, index) => <Mark lat={info.location.latitude} lng={info.location.longitude} name={info.location.locationName} params={params} />)}
             {arr.map((info, index) => <IB lat={info.location.latitude} lng={info.location.longitude} name={info.location.locationName} params={params} />)}
         </GoogleMap>
+        <button  className="button" onClick={()=>clickupdate()}> Refresh time </button>
 
     </>)
 }
+
 
 class Mark extends React.Component {
     constructor(props) {
