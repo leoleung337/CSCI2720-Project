@@ -45,7 +45,7 @@ router.get("/weather/create/:location", (req, res) => {
 //FindAll
 router.get("/weather", (req, res) => {
   Weather.find()
-    .populate("location")
+    .populate('location')
     .exec(function (err, result) {
       if (err) {
         res.status(500).send({ msg: err.message });
