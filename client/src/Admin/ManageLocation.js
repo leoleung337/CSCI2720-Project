@@ -27,7 +27,7 @@ class CreateLocation extends React.Component {
     }
 
     handleChange(event) {
-        this.setState({value: event.target.value});
+        this.setState({ value: event.target.value });
     }
 
     handleSubmit(event) {
@@ -47,7 +47,7 @@ class CreateLocation extends React.Component {
         return (
             <div>
                 <h2>Create</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={ this.handleSubmit }>
                     <label>
                         Location:
                         <br></br>
@@ -71,7 +71,7 @@ class DeleteLocation extends React.Component {
     }
 
     handleChange(event) {
-        this.setState({value: event.target.value});
+        this.setState({ value: event.target.value });
     }
 
     handleSubmit(event) {
@@ -91,7 +91,7 @@ class DeleteLocation extends React.Component {
         return (
             <div>
                 <h2>Delete</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={ this.handleSubmit }>
                     <label>
                         Location:
                         <br></br>
@@ -114,6 +114,12 @@ function ReadLocation(){
             .then(setData);
     }, []);
 
+    const refresh = function() {
+        fetch('http://localhost:8080/location')
+            .then(res => res.json())
+            .then(setData);
+    }
+
     return (
         <>
             <div>
@@ -129,14 +135,15 @@ function ReadLocation(){
                             data.map((e) =>
                                 <>
                                     <tr>
-                                        <td>{e.locationName}</td>
-                                        <td>{e.latitude}</td>
-                                        <td>{e.longitude}</td>
+                                        <td>{ e.locationName }</td>
+                                        <td>{ e.latitude }</td>
+                                        <td>{ e.longitude }</td>
                                     </tr>
                                 </>
                             ) }
                     </tbody>
                 </table>
+                <button className="button" onClick={ () => refresh() }> Refresh </button>
             </div>
         </>
     );

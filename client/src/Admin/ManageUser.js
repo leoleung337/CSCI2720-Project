@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import './ManageUser.css'
 
 class ManageUser extends React.Component{
@@ -15,56 +15,51 @@ class ManageUser extends React.Component{
                     <br></br>
                     <DeleteUser />
                     <br></br>
-                    <ListAllUser />
+                    <ReadUser />
                 </div>
             </>
         );
     }
 }
-class ListAllUser extends React.Component{
-    constructor(props){
-        super(props);
-        this.state={userdf:[]}
+
+function ReadUser() {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:8080/searchAllUser')
+            .then(res => res.json())
+            .then(setData);
+    }, []);
+
+    const refresh = function() {
+        fetch('http://localhost:8080/searchAllUser')
+            .then(res => res.json())
+            .then(setData);
     }
-    componentDidMount(){
-        console.log(process.env.REACT_APP_URL)
-        fetch(`http://localhost:8080/searchAllUser`,{
-            method: "GET",
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            mode: 'cors'
-        })
-        .then(res =>res.json())
-        .then(json=>{
-            this.setState({userdf:json})
-            console.log('get')
-        })
-    }
-        render(){
-            return(
-                <>
-                <h2>Username List</h2>
+    return (
+        <>
+            <div>
+                <h2>Read</h2>
                 <table>
-                    <thead>
-                        <tr>
-                            <th scope="col">Username List</th>
-                        </tr>
-                    </thead>
                     <tbody>
-                    {this.state.userdf.map((user,index)=>
-                    <tr key ={index} >
-                        <td>{user.username}</td>
-                    </tr>
-                    )}
+                        <tr>
+                            <th>Username</th>
+                        </tr>
+                        {
+                            data.map((e) =>
+                                <>
+                                    <tr>
+                                        <td>{ e.username }</td>
+                                    </tr>
+                                </>
+                            )
+                        }
                     </tbody>
                 </table>
-                <br></br>
-                </>
-                
-            );
-        }
-    }
+            </div>
+                <button className="button" onClick={ () => refresh() }> Refresh </button>
+        </>
+    )
+}
 
 class CreateUser extends React.Component {
     constructor(props) {
