@@ -44,7 +44,9 @@ export default function TableView() {
 
                 let newData = t[newIndex][j];
                 if (j == 0) {
-                    tab.children[i].children[0].children[0].innerText=newData
+                    let loc = tab.children[i].children[0].children[0];
+                    loc.innerText=newData
+                    loc.href='./user/' + params + '/'+newData
                 }
                 else tab.children[i].children[j].innerText = newData
             }
