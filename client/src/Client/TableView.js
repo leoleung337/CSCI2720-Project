@@ -2,22 +2,22 @@
 
 import React, { useEffect, useState } from "react";
 import EachLocation from "./EachLocation";
-import { Route, Routes, Link, useParams } from 'react-router-dom';
+import { BrowserRouter,Route, Routes, Link, useParams } from 'react-router-dom';
 
-    export default function TableView() {
-        const [arr, setarr] = useState([]);
-        const params=useParams().username;
-    
-        useEffect(() => {
-            const fet = async () => {
-                const response = await fetch(`http://localhost:8080/weather`);
-                const res = await response.json();
-                setarr(res)
-    
-            };
-            fet();
-        }, []);
-    
+export default function TableView() {
+    const [arr, setarr] = useState([]);
+    const params = useParams().username;
+
+    useEffect(() => {
+        const fet = async () => {
+            const response = await fetch(`http://localhost:8080/weather`);
+            const res = await response.json();
+            setarr(res)
+
+        };
+        fet();
+    }, []);
+
     let sorting = function () {
         let sortby = document.querySelector("#sort").value;
         if (sortby == 0) return;
@@ -33,26 +33,30 @@ import { Route, Routes, Link, useParams } from 'react-router-dom';
             s_sort[i - 1] = parseFloat(tab.children[i].children[sortby].innerText);
 
         }
-        if (document.querySelector("#order").value==0)
+        if (document.querySelector("#order").value == 0)
             s_sort.sort((x, y) => x - y);
         else s_sort.sort((x, y) => y - x);
-             
+
 
         for (let i = 1; i < tab.children.length; i++) {
             let newIndex = s.indexOf(s_sort[i - 1]);
             for (let j = 0; j < 8; j++) {
-                tab.children[i].children[j].innerText = t[newIndex][j];
 
+                let newData = t[newIndex][j];
+                if (j == 0) {
+                    tab.children[i].children[0].children[0].innerText=newData
+                }
+                else tab.children[i].children[j].innerText = newData
             }
             s[newIndex] = 9999999
         }
     }
-    
+
     return (
         <>
             <h2>Table View</h2>
             <form>
-                <label  style={{paddingTop:30}}>Sort by:</label>
+                <label style={{ paddingTop: 30 }}>Sort by:</label>
                 <select id="sort">
                     <option value="0">Default</option>
                     <option value="1">temp_c</option>
@@ -61,20 +65,20 @@ import { Route, Routes, Link, useParams } from 'react-router-dom';
                     <option value="5">precip_mm</option>
                     <option value="6">vis_km</option>
                 </select>
-                <label  style={{paddingTop:30}}>Order:</label>
+                <label style={{ paddingTop: 30 }}>Order:</label>
                 <select id="order">
                     <option value="0">ascending</option>
                     <option value="1">descending</option>
                 </select>
-                <button type="button" id="sort" onClick={()=>sorting()}>enter</button>
+                <button type="button" id="sort" onClick={() => sorting()}>enter</button>
             </form>
 
-            <div  style={{paddingTop:30}}/>
+            <div style={{ paddingTop: 30 }} />
             <table id="tab">
                 <tr><td>location</td><td>temp_c</td><td>wind_kph</td><td>wind_dir</td><td>humidity</td><td>precip_mm</td><td>vis_km</td><td>last updated time</td></tr>
                 {arr.map((weather, index) =>
                     <tr id={index}>
-                        <td><Link to ={`/user/${params}/${weather.location.locationName}`}>{weather.location.locationName}</Link></td>
+                        <td><Link to={`/user/${params}/${weather.location.locationName}`}>{weather.location.locationName}</Link></td>
                         <td>{weather.temp_c}</td>
                         <td>{weather.wind_kph}</td>
                         <td>{weather.wind_dir}</td>
@@ -87,8 +91,8 @@ import { Route, Routes, Link, useParams } from 'react-router-dom';
 
             </table>
             <Routes>
-                        <Route path="/:location" element={<EachLocation username={params} />} />
-                    </Routes>
-            </>
+                <Route path="/:location" element={<EachLocation username={params} />} />
+            </Routes>
+        </>
     );
 }
