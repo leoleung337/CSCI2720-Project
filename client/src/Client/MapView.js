@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import { Route, Routes, Link, useNavigate, Navigate, useParams } from 'react-router-dom';
-import EachLocation from "./EachLocation";
+import { Route, Routes, Link, useParams } from 'react-router-dom';
 
 const mapContainerStyle = {
     width: "100%",
@@ -12,10 +11,6 @@ const mapContainerStyle = {
 };
 
 export default function MapView() {
-    //update the newest weather location before getting the weather
-
-
-
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyB91UVLhKv--pecJHLAMwS2JpmGgYbsTps",
     });
