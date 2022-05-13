@@ -44,7 +44,7 @@ class Home extends React.Component {
                 //navbar
                 <div className="container">
                     <div style={{ paddingTop: 20 }} />
-                    <h2 style={{ fontSize: 45 }}> <Link to={`/user/${params}`}>Main Page</Link></h2>
+                    <h2 style={{ fontSize: 45 }}> <Link to={`/user/${params}`}>Observatory</Link></h2>
                     <h5>{params}</h5>
                     {/*                 <div className="icon-bar" >  
                     <a href="/" onClick={this.removeCookies}>Logout  <i class="bi bi-box-arrow-in-left"></i></a>
