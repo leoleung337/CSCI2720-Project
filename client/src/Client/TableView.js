@@ -18,32 +18,33 @@ import { Route, Routes, Link, useParams } from 'react-router-dom';
             fet();
         }, []);
     
-        let sorting=function() {
-            let sortby = document.querySelector("#sort").value;
-            if (sortby == 0) return;
-            let s = [],t=[],s_sort=[];
-            let tab=document.querySelector("#tab");
-            for (let i = 1; i < tab.children.length; i++) {
-                let row = []            
-                for (let j = 0; j < 8; j++) {
+    let sorting = function () {
+        let sortby = document.querySelector("#sort").value;
+        if (sortby == 0) return;
+        let s = [], t = [], s_sort = [];
+        let tab = document.querySelector("#tab");
+        for (let i = 1; i < tab.children.length; i++) {
+            let row = []
+            for (let j = 0; j < 7; j++) {
                 row[j] = tab.children[i].children[j].innerText;
-                }
-                t[i-1]=row
-                s[i-1] = parseFloat(tab.children[i].children[sortby].innerText);
-                s_sort[i-1] = parseFloat(tab.children[i].children[sortby].innerText);
-            
-        }
-            s_sort.sort((x, y) => x - y);
-    
-            for (let i = 1; i < tab.children.length; i++) {
-                let newIndex = s.indexOf(s_sort[i]);
-                for (let j=0;j<8;j++){
-                    tab.children[i].children[j].innerText=t[newIndex][j];
-    
-                }
-                s[newIndex]=9999999
             }
+            t[i - 1] = row
+            s[i - 1] = parseFloat(tab.children[i].children[sortby].innerText);
+            s_sort[i - 1] = parseFloat(tab.children[i].children[sortby].innerText);
+
         }
+        s_sort.sort((x, y) => x - y);
+
+        for (let i = 1; i < tab.children.length; i++) {
+            let newIndex = s.indexOf(s_sort[i - 1]);
+            for (let j = 0; j < 7; j++) {
+                tab.children[i].children[j].innerText = t[newIndex][j];
+
+            }
+            s[newIndex] = 9999999
+        }
+    }
+    
     return (
         <>
             <h2>Table View</h2>
