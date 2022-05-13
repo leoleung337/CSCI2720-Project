@@ -33,7 +33,10 @@ import { Route, Routes, Link, useParams } from 'react-router-dom';
             s_sort[i - 1] = parseFloat(tab.children[i].children[sortby].innerText);
 
         }
-        s_sort.sort((x, y) => x - y);
+        if (document.querySelector("#order").value==0)
+            s_sort.sort((x, y) => x - y);
+        else s_sort.sort((x, y) => y - x);
+             
 
         for (let i = 1; i < tab.children.length; i++) {
             let newIndex = s.indexOf(s_sort[i - 1]);
@@ -58,7 +61,11 @@ import { Route, Routes, Link, useParams } from 'react-router-dom';
                     <option value="5">precip_mm</option>
                     <option value="6">vis_km</option>
                 </select>
-
+                <label  style={{paddingTop:30}}>Order:</label>
+                <select id="order">
+                    <option value="0">ascending</option>
+                    <option value="1">descending</option>
+                </select>
                 <button type="button" id="sort" onClick={()=>sorting()}>enter</button>
             </form>
 
