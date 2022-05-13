@@ -53,14 +53,7 @@ export default function TableView() {
         }
     }
 
-function add(){console.log("ha");
-let row=document.querySelector("#tab").children[1];
-document.querySelector("#tab").appendChild(row);
-
-}
-
-    return (
-        <>
+    return (<>
             <h2>Table View</h2>
             <form>
                 <label style={{ paddingTop: 30 }}>Sort by:</label>
