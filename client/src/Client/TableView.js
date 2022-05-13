@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import EachLocation from "./EachLocation";
-import { BrowserRouter,Route, Routes, Link, useParams } from 'react-router-dom';
+import { Route, Routes, Link, useParams } from 'react-router-dom';
 
 export default function TableView() {
     const [arr, setarr] = useState([]);
@@ -36,23 +36,28 @@ export default function TableView() {
         if (document.querySelector("#order").value == 0)
             s_sort.sort((x, y) => x - y);
         else s_sort.sort((x, y) => y - x);
-
+        
+        let index=[-1]
+        for (let i = 1; i < tab.children.length; i++) {
+            index[i] = s.indexOf(s_sort[i - 1]) + 1 //The i-th element is the index-i th chiled of tab;
+            s[index[i]-1] = 9999999
+        }
 
         for (let i = 1; i < tab.children.length; i++) {
-            let newIndex = s.indexOf(s_sort[i - 1]);
-            for (let j = 0; j < 8; j++) {
-
-                let newData = t[newIndex][j];
-                if (j == 0) {
-                    let loc = tab.children[i].children[0].children[0];
-                    loc.innerText=newData
-                    loc.href='./user/' + params + '/'+newData
-                }
-                else tab.children[i].children[j].innerText = newData
+            let loc = tab.children[index[i]]
+            tab.appendChild(loc)   
+            for (let k=0;k<index.length;k++){
+                if (index[k]>index[i]) index[k]--;
             }
-            s[newIndex] = 9999999
+          
         }
     }
+
+function add(){console.log("ha");
+let row=document.querySelector("#tab").children[1];
+document.querySelector("#tab").appendChild(row);
+
+}
 
     return (
         <>
