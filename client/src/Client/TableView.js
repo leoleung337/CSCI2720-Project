@@ -40,7 +40,7 @@ import { Route, Routes, Link, useParams } from 'react-router-dom';
 
         for (let i = 1; i < tab.children.length; i++) {
             let newIndex = s.indexOf(s_sort[i - 1]);
-            for (let j = 0; j < 7; j++) {
+            for (let j = 0; j < 8; j++) {
                 tab.children[i].children[j].innerText = t[newIndex][j];
 
             }
