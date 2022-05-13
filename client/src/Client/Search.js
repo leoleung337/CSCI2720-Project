@@ -46,10 +46,10 @@ class Search extends React.Component {
             });
     }
     render() {
-        return (<><h1>Search for fields</h1>
+        return (<><h2>Search for fields</h2>
             <form>
 
-                <label>Field:</label>
+                <label style={{paddingTop:30}}>Field: </label>
                 <select id="kw">
                     <option value="temp_c">temp_c</option>
                     <option value="wind_kph">wind_kph</option>
@@ -62,7 +62,7 @@ class Search extends React.Component {
                 <button type="button" id="search" onClick={() => this.search()}>load</button>
             </form>
 
-            <div id="results">
+            <div id="results" style={{paddingTop:30}}>
             </div>
         </>)
     }

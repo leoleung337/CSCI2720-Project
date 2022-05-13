@@ -3,7 +3,6 @@ This is the home page of user interface
 */
 
 import React from "react";
-import Weather from "./Weather";
 import FavLoc from "./FavLoc";
 import "./home.css"
 import TableView from "./TableView";

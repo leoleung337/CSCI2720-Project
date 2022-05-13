@@ -46,9 +46,9 @@ export default function TableView() {
     }
     return (
         <>
-            <h1>TableView</h1>
+            <h2>Table View</h2>
             <form>
-                <label>Sort by:</label>
+                <label  style={{paddingTop:30}}>Sort by:</label>
                 <select id="sort">
                     <option value="0">Default</option>
                     <option value="1">temp_c</option>
@@ -60,9 +60,8 @@ export default function TableView() {
 
                 <button type="button" id="sort" onClick={()=>sorting()}>enter</button>
             </form>
-
-
-            <table id="tab">
+            <div  style={{paddingTop:30}}/>
+            <table id="tab" >
                 <tr><td>location</td><td>temp_c</td><td>wind_kph</td><td>wind_dir</td><td>humidity</td><td>precip_mm</td><td>vis_km</td></tr>
                 {arr.map((weather, index) =>
                     <tr id={index}>

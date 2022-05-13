@@ -33,7 +33,7 @@ function Map() {
         fet();
     }, []);
 
-    return (<><h1>Map View</h1>
+    return (<><h2>Map View</h2>
         <GoogleMap zoom={2} center={centre} width="100%" height="70vh">
             {arr.map((info, index) => {
                 const loc = { lat: info.location.latitude, lng: info.location.longitude };
