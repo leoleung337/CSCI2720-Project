@@ -1,7 +1,7 @@
 //Map view of location (User action #2)
 
 import React, { useEffect, useState } from "react";
-import { GoogleMap, useLoadScript, Marker,InfoBox} from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, Marker, InfoBox } from '@react-google-maps/api';
 import { Route, Routes, Link, useNavigate, Navigate, useParams } from 'react-router-dom';
 import EachLocation from "./EachLocation";
 
@@ -9,7 +9,8 @@ const mapContainerStyle = {
     width: "100%",
     height: "60vh",
     textAlign: "center"
-  };
+};
+
 export default function MapView() {
 
     const { isLoaded } = useLoadScript({
@@ -20,15 +21,14 @@ export default function MapView() {
     return <Map />;
 
 }
-    const centre = {
-        lat: 0,
-        lng: 0
-    };
 
 function Map() {
-    const params=useParams().username;
+    const params = useParams().username;
     const [arr, setarr] = useState([]);
-
+const centre = {
+    lat: 0,
+    lng: 0
+};
     useEffect(() => {
         const fet = async () => {
             const response = await fetch(`http://localhost:8080/weather`);
@@ -37,45 +37,44 @@ function Map() {
         };
         fet();
     }, []);
+    console.log(arr)
 
     return (<><h2>Map View</h2>
         <GoogleMap zoom={2} center={centre} mapContainerStyle={mapContainerStyle}>
-            {arr.map((info, index) => {
-                const loc = { lat: info.location.latitude, lng: info.location.longitude };
-                <>
-                <Marker
-                title={'The marker`s title will appear as a tooltip.'}
-                name={'SOMA'}
-                position={{lat: info.location.latitude, lng: info.location.longitude}} />
-                
-                <InfoBox position={loc}><Link to={`/user/${params}/${info.location.locationName}`}>{info.location.locationName}</Link></InfoBox>
-                </>
-            })}
-                        <Routes>
-                        <Route path="/:location" element={<EachLocation username={params} />} />
-                    </Routes>
+            {arr.map((info, index) => <Mark lat={info.location.latitude} lng={info.location.longitude} name={info.location.locationName} params={params} />)}
+            {arr.map((info, index) => <IB lat={info.location.latitude} lng={info.location.longitude} name={info.location.locationName} params={params} />)}
         </GoogleMap>
-        <h1>hi</h1>
-        
-        
-</>)
+
+    </>)
 }
 
+class Mark extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-/* function Map() {
-    return(<>
-    <div style={{ height: '1000px', width: '1000px' }}>
-    <GoogleMap
-        zoom={10}
-        center={{lat:44, lng:-80}}
-        mapContainerStyle={mapContainerStyle}
-        >
-        <Marker
-            title={'The marker`s title will appear as a tooltip.'}
-            name={'SOMA'}
-            position={{lat: 44, lng: -88}} />
-        </GoogleMap>
-        <h1>hi</h1>
-        </div>
-        </>)
-} */
+    render() {
+        let name = this.props.name;
+        const lati = this.props.lat;
+        const long = this.props.lng;
+        const loc = { lat: lati, lng: long };
+        return (<Marker
+            title={name}
+            position={loc} />
+
+        )
+    }
+}
+class IB extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        const name = this.props.name;
+        const lati = this.props.lat;
+        const long = this.props.lng;
+        const loc = { lat: lati, lng: long };
+        const params=this.props.params;
+                return <InfoBox position={loc}><Link to={`/user/${params}/${name}`}>{name}</Link></InfoBox>
+    }
+}
