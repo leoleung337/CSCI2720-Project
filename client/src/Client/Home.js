@@ -56,6 +56,7 @@ class Home extends React.Component {
                     <br />
                     <div className="nav nav-tabs text-light" id="bar" >
                         <ul>
+                        <li><Link to={`/user/${params}`} id="mapView">Home</Link></li>                        
                         <li><Link to={`/user/${params}/MapView`} id="mapView">Map View</Link></li>
                         <li><Link to={`/user/${params}/Search`} id="search">Searching</Link> </li>
                         <li> <Link to={`/user/${params}/FavouriteLocation`} id="favlocation">Favourite Locations</Link></li>
