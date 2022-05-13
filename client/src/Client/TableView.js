@@ -25,7 +25,7 @@ import { Route, Routes, Link, useParams } from 'react-router-dom';
         let tab = document.querySelector("#tab");
         for (let i = 1; i < tab.children.length; i++) {
             let row = []
-            for (let j = 0; j < 7; j++) {
+            for (let j = 0; j < 8; j++) {
                 row[j] = tab.children[i].children[j].innerText;
             }
             t[i - 1] = row
