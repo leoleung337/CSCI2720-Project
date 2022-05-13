@@ -38,10 +38,7 @@ function Map() {
         fet();
     }, []);
 
-    return (
-    <>
-        <div style={{ height: '1000px', width: '1000px' }}>
-        <h1>Map View</h1>
+    return (<><h2>Map View</h2>
         <GoogleMap zoom={2} center={centre} mapContainerStyle={mapContainerStyle}>
             {arr.map((info, index) => {
                 const loc = { lat: info.location.latitude, lng: info.location.longitude };
@@ -59,7 +56,7 @@ function Map() {
                     </Routes>
         </GoogleMap>
         <h1>hi</h1>
-        </div>
+        
         
 </>)
 }

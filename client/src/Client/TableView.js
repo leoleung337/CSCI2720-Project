@@ -46,9 +46,9 @@ import { Route, Routes, Link, useParams } from 'react-router-dom';
         }
     return (
         <>
-            <h1>TableView</h1>
+            <h2>Table View</h2>
             <form>
-                <label>Sort by:</label>
+                <label  style={{paddingTop:30}}>Sort by:</label>
                 <select id="sort">
                     <option value="0">Default</option>
                     <option value="1">temp_c</option>
@@ -61,7 +61,7 @@ import { Route, Routes, Link, useParams } from 'react-router-dom';
                 <button type="button" id="sort" onClick={()=>sorting()}>enter</button>
             </form>
 
-
+            <div  style={{paddingTop:30}}/>
             <table id="tab">
                 <tr><td>location</td><td>temp_c</td><td>wind_kph</td><td>wind_dir</td><td>humidity</td><td>precip_mm</td><td>vis_km</td><td>last updated time</td></tr>
                 {arr.map((weather, index) =>
