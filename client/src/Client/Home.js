@@ -55,10 +55,12 @@ class Home extends React.Component {
 
                     <br />
                     <div className="nav nav-tabs text-light" id="bar" >
-                        <Link to={`/user/${params}/MapView`} id="mapView">Map View</Link>
-                        <Link to={`/user/${params}/Search`} id="search">Searching</Link> 
-                        <Link to={`/user/${params}/FavouriteLocation`} id="favlocation">Favourite Locations</Link>
-                        <Link to="/" onClick={this.removeCookies} id="logout">Logout<i class="bi bi-box-arrow-in-left"></i></Link>
+                        <ul>
+                        <li><Link to={`/user/${params}/MapView`} id="mapView">Map View</Link></li>
+                        <li><Link to={`/user/${params}/Search`} id="search">Searching</Link> </li>
+                        <li> <Link to={`/user/${params}/FavouriteLocation`} id="favlocation">Favourite Locations</Link></li>
+                        <li style={{textAlign: 'right'}}><Link to="/" onClick={this.removeCookies} id="logout" >Logout<i class="bi bi-box-arrow-in-left"></i></Link></li>
+                        </ul>
                     </div>
                     <br />
 

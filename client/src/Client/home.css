@@ -21,12 +21,18 @@ h5{
 text-align: right;
 }
 
-#favlocation,#search,#mapView{
-    padding-right: 15px;
+#bar{
+    width: 100%;
+    overflow: auto;
+}
+li {
+    float:left;
     text-align: right;
-    float: right;
-
-}
-link{
-    float: right;
-}
+  }
+li a {
+    float:right;
+    text-align: center;
+    text-decoration: none;
+    padding-right: 15px;
+  }
+  
