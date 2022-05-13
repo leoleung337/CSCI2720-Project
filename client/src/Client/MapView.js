@@ -5,6 +5,11 @@ import { GoogleMap, useLoadScript, Marker,InfoBox} from '@react-google-maps/api'
 import { Route, Routes, Link, useNavigate, Navigate, useParams } from 'react-router-dom';
 import EachLocation from "./EachLocation";
 
+const mapContainerStyle = {
+    width: "100%",
+    height: "60vh",
+    textAlign: "center"
+  };
 export default function MapView() {
 
     const { isLoaded } = useLoadScript({
@@ -33,11 +38,19 @@ function Map() {
         fet();
     }, []);
 
-    return (<><h1>Map View</h1>
-        <GoogleMap zoom={2} center={centre} width="100%" height="70vh">
+    return (
+    <>
+        <div style={{ height: '1000px', width: '1000px' }}>
+        <h1>Map View</h1>
+        <GoogleMap zoom={2} center={centre} mapContainerStyle={mapContainerStyle}>
             {arr.map((info, index) => {
                 const loc = { lat: info.location.latitude, lng: info.location.longitude };
-                <><Marker position={loc} />
+                <>
+                <Marker
+                title={'The marker`s title will appear as a tooltip.'}
+                name={'SOMA'}
+                position={{loc}} />
+                
                 <InfoBox position={loc}><Link to={`/user/${params}/${info.location.locationName}`}>{info.location.locationName}</Link></InfoBox>
                 </>
             })}
@@ -45,5 +58,10 @@ function Map() {
                         <Route path="/:location" element={<EachLocation username={params} />} />
                     </Routes>
         </GoogleMap>
+        <h1>hi</h1>
+        </div>
+        
 </>)
 }
+
+
