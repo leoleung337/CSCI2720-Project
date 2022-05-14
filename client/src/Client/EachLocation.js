@@ -44,7 +44,6 @@ export default function EachLocation(props) {
     };
 
     //getting single location details from database
-
     const getLocation = async () => {
         updateweather();
         const response = await fetch(`http://localhost:8080/weather/${location}`);
@@ -72,9 +71,7 @@ export default function EachLocation(props) {
             setcomment(res)
         };
         fetchComment();
-
     }, [comment]);
-    // useEffect(()=>{fetchComment()},[]) //update comments when new comments had been made 
 
     //add favourite locations to the database
     const addfavloc = function () {
@@ -84,8 +81,8 @@ export default function EachLocation(props) {
                 window.alert(res.msg)
                 console.log(res)
             })
-
     };
+
     //setting the latitude and longtitude of the map
     const Center = {
         lat: lat,
@@ -125,7 +122,6 @@ export default function EachLocation(props) {
     return (
         <div>
             <button className="button" onClick={() => addfavloc()}> Add to Favourite </button>
-
             <h2 style={{ paddingTop: 70 }}>{location}</h2>
             <GoogleMap
                 mapContainerStyle={mapContainerStyle}
@@ -171,14 +167,10 @@ export default function EachLocation(props) {
 
             </div>
 
-
             <div class="container">
                 <div class="row">
                     <section class="col-sm-6 col-md-7 col-xl-8">
-
                         <h4 style={{ paddingTop: 50 }}>Comments</h4>
-
-
                         {(comment || []).map((comment, index) => (
                             <div className="card" id="everycomment" key={index} >
                                 <div className="card-body" id="001">
@@ -197,19 +189,14 @@ export default function EachLocation(props) {
                                 addcomment(e.target[0].value)
                             }}>
 
-
-
-                            <div className="form-group" style={{ paddingTop: 30 }}>
+                            <div className="form-group" style={{ paddingTop: 20 }}>
                                 <h4 style={{ paddingTop: 30 }}>Add Comments</h4>
-
                                 <textarea name="content" id="new-comment" className="form-control" placeholder="Write Something..." rows={10} required></textarea>
                             </div>
                             <button type="submit" className="button" >Submit</button>
-
                         </form>
                     </section>
                 </div></div>
-
         </div >
     );
 }
