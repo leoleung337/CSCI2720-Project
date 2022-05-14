@@ -1,6 +1,13 @@
 # CSCI2720-Project
 CSCI2720-Project
-npm install {packages} after cd client / cd backend
+
+install packages
+1. Split terminal
+2. cd client (1st terminal)
+3. npm i (1st terminal)
+4. cd backend (2nd terminal)
+5. npm i (2nd terminal)
+
 
 Client PORT: 3000
 http://localhost:3000
@@ -12,15 +19,15 @@ cd client
 npm start
 
 Client Production build
+cd client
 npm run build
-npm install -g serve
 serve -s build
 
 Backend
 cd backend
-npm start
+npm start / node server
 
-https://www.youtube.com/watch?v=7CqJlxBYj-M
-https://www.youtube.com/watch?v=-Vd5RRZXIyo
-Production Build
-https://www.youtube.com/watch?v=cu419lg9zrw
+We have read http://www.cuhk.edu.hk/policy/academichonesty
+
+Github link:
+https://github.com/leoleung337/CSCI2720-Project
