@@ -1,8 +1,17 @@
 /*
+Hui Cheuk Hin 1155124935
+Law Wan Chun Jeffrey 1155125137
+Lee Kam Chung Gordon 1155142809
+Leung Tsz Hin Leo 1155127195
+Wong Kai Lok Peter 1155125720
+Wong Yuen Ying Angel 1155125283
+*/
+/*
 A separate view for one single location 
 Add location into a list of user’s favourite locations
 (user action #4,5)
 */
+
 import React, { useEffect, useState } from "react";
 import { GoogleMap, useLoadScript } from '@react-google-maps/api';
 import { useParams } from 'react-router-dom';
