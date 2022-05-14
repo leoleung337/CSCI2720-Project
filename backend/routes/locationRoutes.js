@@ -202,6 +202,8 @@ router.post("/location/:location/addComment", (req, res) => {
         .exec((err, location) => {
           if (err) {
             res.status(500).send({msg: "Location Comment create error."})
+        } else if (!location){
+          res.status(500).send({msg: "Location not existed"})
         } else{
           location.comments.push(results)
           location.save()
@@ -222,8 +224,9 @@ router.get("/location/:location/loadComment", (req, res) => {
   .exec((err, result) => {
     if (err) {
       res.status(500).send({ msg: err.message });
-    }
-    else{
+    } else if (!result){
+      res.status(500).send({ msg: 'There is no comment' });
+    } else{
       res.send(result.comments);
 /*       for (var i = 0; i < result.comments.length; i++)
        commentList.push([result.comments[i].author, result.comments[i].content]);
